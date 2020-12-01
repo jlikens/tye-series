@@ -1,0 +1,24 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: tye-talk-2020-06-tye-plus-plus
+
+extensions:
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
+
+services:
+- name: api-person
+  project: api.person/api.person.csproj
+- name: api-todo
+  project: api.todo/api.todo.csproj
+- name: api-weather
+  project: api.weather/api.weather.csproj
+- name: frontend-client
+  project: frontend/Client/frontend.Client.csproj
+- name: frontend-server
+  project: frontend/Server/frontend.Server.csproj
