@@ -199,3 +199,14 @@ namespace api.todo.Controllers
     }
 }
 ```
+
+### Running With Tye
+Now that you've got everything set up, all you need to do is run `tye run` from a developer command prompt.  One of the first things you'll see is the dashboard URL:
+
+![Image of Tye console](https://i.imgur.com/o3TqHRU.png)
+
+Load up http://127.0.0.1:8000 and you'll see the first bit of magic Tye gives you: a dashboard that shows everything Tye is running, as well as a single place to see every application's logs.
+
+![Image of Tye dashboard](https://i.imgur.com/dNdMPHu.png)
+
+### Running Without Tye
