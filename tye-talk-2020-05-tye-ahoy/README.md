@@ -226,4 +226,4 @@ Behind the scenes, when it comes to configuration such as URLs, Tye essentially 
 }
 ```
 
-Note that, as with any manual process, you'll have to keep these values synchronized across all of the projects.
+Note that, as with any manual configuration, you'll have to keep these values synchronized across all of the projects.
