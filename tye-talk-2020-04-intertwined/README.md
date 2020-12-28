@@ -10,3 +10,50 @@ So at this point, we've got a fairly complicated situation.  When you run this c
 It should be fairly apparent that, even with just three microservices and one front-end, we've already got a fair amount of yucky complexity to manage.  Not only do we have to make sure that the endpoints for each API  are configured correctly for each client, we also have to make sure we have a good understanding about how all of these things are interconnected.  Bear in mind, we are still working in a super-simple scenario in which one single solution holds all of the interdependent projects.
 
 Take a look at the spots where we have to point a client to an API.  In our next example, we'll finally bring in Tye and see how it makes life easier, particularly with respect to ease the management of these connections.
+
+### Endpoints
+As an example, notice how we have to maintain `https://localhost:5005` as the endpoint for our Todo API in two places:
+
+```csharp
+namespace api.person.Controllers
+{
+    public class PersonController : ControllerBase
+    {
+        ...
+        
+        private async Task<IEnumerable<TodoItem>> GetRandomTodoItems()
+        {
+            var rnd = new Random();
+            var httpClient = new HttpClient();
+            var client = new api.clients.TodoApiClient("https://localhost:5005", httpClient);
+            var todoItems = await client.TodoItemsAllAsync();
+            return todoItems.Take(rnd.Next(0, todoItems.Count()));
+        }
+        
+        ....
+    }
+}
+```
+```csharp
+namespace frontend.Server.Controllers
+{
+    public class TodoController : ControllerBase
+    {
+        ...
+        
+        [HttpGet]
+        public async Task<IEnumerable<TodoItemResource>> Get()
+        {
+            _logger.LogInformation("In front-end");
+            var httpClient = new HttpClient();
+            var client = new api.todoApi.TodoApiClient("https://localhost:5005", httpClient);
+            var todoItems = await client.TodoItemsAllAsync();
+            ...
+        }
+        
+        ...
+    }
+}
+```
+
+Now, obviously in the real world, we wouldn't hardcode our endpoints into the code, and we are only doing so here for simplicity's sake.
