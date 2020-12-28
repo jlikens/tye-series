@@ -220,7 +220,6 @@ Behind the scenes, when it comes to configuration such as URLs, Tye essentially 
 
 ```json
 {
-  // The following lines let you use GetServiceUri without Tye
   "service:api-weather:host": "localhost",
   "service:api-weather:port": "5003",
   "service:api-weather:protocol": "https"
