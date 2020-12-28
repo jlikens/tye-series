@@ -12,7 +12,7 @@ It should be fairly apparent that, even with just three microservices and one fr
 Take a look at the spots where we have to point a client to an API.  In our next example, we'll finally bring in Tye and see how it makes life easier, particularly with respect to ease the management of these connections.
 
 ### Endpoints
-As an example, notice how we have to maintain `https://localhost:5005` as the endpoint for our Todo API in two places:
+As an example of our growing complexity, notice how we have to maintain `https://localhost:5005` as the endpoint for our Todo API in two places:
 
 ```csharp
 namespace api.person.Controllers
@@ -54,6 +54,6 @@ namespace frontend.Server.Controllers
 }
 ```
 
-Now, obviously in the real world, we wouldn't hardcode our endpoints into the code, and we are only doing so here for simplicity's sake.  It still illustrates the point that we have multiple places, in multiple projects, that need to refer to the same configuration element.
+Obviously, in the real world, we wouldn't hardcode our endpoints into the code, and we are only doing so here for simplicity's sake.  It still serves to illustrate the point that we have multiple places, in multiple projects, that need to refer to the same configuration element.
 
 Within a single project, this is easy to manage: just add something to your `appSettings.json` to point to the correct endpoint, and you're good to go.  But how do you make sure this endpoint is synchronized across multiple different projects?
