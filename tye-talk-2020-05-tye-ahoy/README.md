@@ -36,7 +36,7 @@ services:
 Now that we've got Tye installed and initialized for the solution, we need to make a few code changes to take advantage of the Tye magic.  First, we'll move towards using dependency injection for our API HTTP clients so that we can configure them from our `Startup` classes.
 
 #### Frontend
-One of the main extension methods Tye brings is `IConfiguration.GetServiceUri(string)`, which dips into the configuration elements that Tye injects into the environment runtime.  We can refer to any of the projects in `tye.yaml` by name, as follows:
+After adding the `Microsoft.Tye.Extensions.Configuration` NuGet package (note: as of this writing, this package is still in pre-release, so you'll need to enable installation of pre-release packages).  One of the main extension methods Tye brings is `IConfiguration.GetServiceUri(string)`, which dips into the configuration elements that Tye injects into the environment runtime.  We can refer to any of the projects in `tye.yaml` by name, as follows:
 
 ```csharp
 namespace frontend.Server
@@ -72,8 +72,29 @@ namespace frontend.Server
 
 Here, we've configured our services for our three API HTTP clients so that we can inject them, and we've set their `BaseAddress` to the URI that Tye automagically sets up for each of the API projects.
 
+Next, we'll want to take advantage of our injected HTTP clients by changing the controllers as follows (update the remaining controllers in a similar fashion):
+
+```csharp
+namespace frontend.Server.Controllers
+{
+    public class PersonController : ControllerBase
+    {
+        [HttpGet]
+        public async Task<IEnumerable<PersonResource>> Get([FromServices] api.personApi.IPersonApiClient apiClient)
+        {
+            ...
+            
+            var people = await apiClient.PersonAllAsync();
+
+            ...
+        }
+    }
+}
+
+```
+
 #### Microservices
-Similarly, we do the same basic configuration for each of the microservices:
+Similarly, we do the same basic configuration for each of the microservices after adding in the `Microsoft.Tye.Extensions.Configuration` NuGet package:
 
 ```csharp
 namespace api.person
@@ -122,4 +143,59 @@ namespace api.todo
     }
 }
 
+```
+
+And then we'll want to update the controllers to use the configured HTTP clients:
+```csharp
+namespace api.person.Controllers
+{
+    public class PersonController : ControllerBase
+    {
+        private readonly PersonContext _context;
+        private readonly ITodoApiClient _todoApiClient;
+
+        public PersonController(PersonContext context, api.clients.ITodoApiClient todoApiClient)
+        {
+            _context = context;
+            _todoApiClient = todoApiClient;
+        }
+
+        ...
+
+        private async Task<IEnumerable<TodoItem>> GetRandomTodoItems()
+        {
+            var rnd = new Random();
+            var todoItems = await _todoApiClient.TodoItemsAllAsync();
+            return todoItems.Take(rnd.Next(0, todoItems.Count() + 1));
+        }
+        
+        ...
+    }
+}
+```
+
+```csharp
+namespace api.todo.Controllers
+{
+    public class TodoItemsController : ControllerBase
+    {
+        private readonly TodoContext _context;
+        private readonly IWeatherApiClient _weatherApiClient;
+
+        public TodoItemsController(TodoContext context, api.client.IWeatherApiClient weatherApiClient)
+        {
+            _context = context;
+            _weatherApiClient = weatherApiClient;
+        }
+
+        ...
+        
+        private async Task<WeatherForecast> GetRandomWeatherForecast()
+        {
+            var rnd = new Random();
+            var weatherForecasts = await _weatherApiClient.WeatherForecastAsync();
+            return weatherForecasts.ToArray()[rnd.Next(0, weatherForecasts.Count())];
+        }
+    }
+}
 ```
