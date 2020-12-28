@@ -54,4 +54,6 @@ namespace frontend.Server.Controllers
 }
 ```
 
-Now, obviously in the real world, we wouldn't hardcode our endpoints into the code, and we are only doing so here for simplicity's sake.
+Now, obviously in the real world, we wouldn't hardcode our endpoints into the code, and we are only doing so here for simplicity's sake.  It still illustrates the point that we have multiple places, in multiple projects, that need to refer to the same configuration element.
+
+Within a single project, this is easy to manage: just add something to your `appSettings.json` to point to the correct endpoint, and you're good to go.  But how do you make sure this endpoint is synchronized across multiple different projects?
