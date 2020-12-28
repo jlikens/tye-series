@@ -9,7 +9,7 @@ So at this point, we've got a fairly complicated situation.  When you run this c
 
 It should be fairly apparent that, even with just three microservices and one front-end, we've already got a fair amount of yucky complexity to manage.  Not only do we have to make sure that the endpoints for each API  are configured correctly for each client, we also have to make sure we have a good understanding about how all of these things are interconnected.  Bear in mind, we are still working in a super-simple scenario in which one single solution holds all of the interdependent projects.
 
-Take a look at the spots where we have to point a client to an API.  In our next example, we'll finally bring in Tye and see how it makes life easier, particularly with respect to ease the management of these connections.
+Take a look at the spots where we have to point a client to an API.  In our next example, we'll finally bring in Tye and see how it makes life easier, particularly with respect to easing the management of these connections.
 
 ### Endpoints
 As an example of our growing complexity, notice how we have to maintain `https://localhost:5005` as the endpoint for our Todo API in two places:
