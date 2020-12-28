@@ -24,4 +24,4 @@ For examples that use containers:
 * [tye-talk-2020-05-tye-ahoy](tye-talk-2020-05-tye-ahoy)
   * We see how Tye can help simplify our spaghetti
 * [tye-talk-2020-06-tye-plus-plus](tye-talk-2020-06-tye-plus-plus)
-  * We use Tye to add in Zipkin and Elastic Stack to take our local debugging and dependency monitoring experience to the next level
+  * We use Tye to add in [Zipkin](https://zipkin.io/) and [Elastic Stack](https://www.elastic.co/elastic-stack) to take our local debugging and dependency monitoring experience to the next level
