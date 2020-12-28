@@ -14,7 +14,7 @@ For examples that use containers:
 
 ## The Series
 * [tye-talk-2020-01-simple](tye-talk-2020-01-simple)
-  * A basic monolithic application, which is essentially just the standard Blazor WASM Weather App
+  * A basic monolithic application, which is essentially just the standard [Blazor WASM Weather App](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro)
 * [tye-talk-2020-02-microservice](tye-talk-2020-02-microservice)
   * We add in our first microservice
 * [tye-talk-2020-03-more-microservices](tye-talk-2020-03-more-microservices)
