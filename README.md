@@ -13,9 +13,15 @@ For examples that use containers:
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for your OS
 
 ## The Series
-1. [tye-talk-2020-01-simple](tye-talk-2020-01-simple) - A basic monolithic application, which is essentially just the standard Blazor WASM Weather App
-1. [tye-talk-2020-02-microservice](tye-talk-2020-02-microservice) - We add in our first microservice
-1. [tye-talk-2020-03-more-microservices](tye-talk-2020-03-more-microservices) - We add in a couple more microservices
-1. [tye-talk-2020-04-intertwined](tye-talk-2020-04-intertwined) - We spaghettify our microservices
-1. [tye-talk-2020-05-tye-ahoy](tye-talk-2020-05-tye-ahoy) - We see how Tye can help simplify our spaghetti
-1. [tye-talk-2020-06-tye-plus-plus](tye-talk-2020-06-tye-plus-plus) - We use Tye to add in Zipkin and Elastic Stack to take our local debugging and dependency monitoring experience to the next level
+* [tye-talk-2020-01-simple](tye-talk-2020-01-simple)
+  * A basic monolithic application, which is essentially just the standard Blazor WASM Weather App
+* [tye-talk-2020-02-microservice](tye-talk-2020-02-microservice)
+  * We add in our first microservice
+* [tye-talk-2020-03-more-microservices](tye-talk-2020-03-more-microservices)
+  * We add in a couple more microservices
+* [tye-talk-2020-04-intertwined](tye-talk-2020-04-intertwined)
+  * We spaghettify our microservices
+* [tye-talk-2020-05-tye-ahoy](tye-talk-2020-05-tye-ahoy)
+  * We see how Tye can help simplify our spaghetti
+* [tye-talk-2020-06-tye-plus-plus](tye-talk-2020-06-tye-plus-plus)
+  * We use Tye to add in Zipkin and Elastic Stack to take our local debugging and dependency monitoring experience to the next level
