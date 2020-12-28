@@ -23,11 +23,10 @@ namespace api.person.Controllers
         
         private async Task<IEnumerable<TodoItem>> GetRandomTodoItems()
         {
-            var rnd = new Random();
+            ...
             var httpClient = new HttpClient();
             var client = new api.clients.TodoApiClient("https://localhost:5005", httpClient);
-            var todoItems = await client.TodoItemsAllAsync();
-            return todoItems.Take(rnd.Next(0, todoItems.Count()));
+            ...
         }
         
         ....
@@ -44,10 +43,9 @@ namespace frontend.Server.Controllers
         [HttpGet]
         public async Task<IEnumerable<TodoItemResource>> Get()
         {
-            _logger.LogInformation("In front-end");
+            ...
             var httpClient = new HttpClient();
             var client = new api.todoApi.TodoApiClient("https://localhost:5005", httpClient);
-            var todoItems = await client.TodoItemsAllAsync();
             ...
         }
         
