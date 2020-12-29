@@ -1,5 +1,5 @@
 # tye-talk-2020-06-tye-plus-plus
-Now that we've gotten Tye running in our [previous example](../tye-talk-2020-05-tye-ahoy), we can start doing some really cool things.  One of the main complications when developing and debugging distributed applications is having a clean, isolated environment where you can see exactly what's going on for your calls, and *only* your calls.  Two applications that assist with this are [Zipkin](https://zipkin.io/) for distributed tracing, and [Elastic Stack](https://www.elastic.co/elastic-stack) for log aggregation.
+Now that we've gotten Tye running in our [previous example](../tye-talk-2020-05-tye-ahoy), we can start doing some really cool things.  One of the main complications when developing and debugging distributed applications is having a clean, isolated environment where you can see exactly what's going on for your calls, and *only* your calls.  Two applications that assist with this are [Zipkin](https://zipkin.io/) for distributed tracing, and [Elastic Stack](https://www.elastic.co/elastic-stack) (aka ELK) for log aggregation.
 
 Normally, setting these up involves either installing the apps locally, or, in more advanced cases, downloading Docker images for each and setting up the appropriate containers.  Both of these setup paths take some time, and you have to do them every time a new dev machine comes online.
 
@@ -18,8 +18,10 @@ extensions:
   logPath: ./.logs
 ```
 
+Give it a `tye run` and, if all goes well, you should be able to load up your Tye Dashboard and see new entries for *zipkin* and *elastic*!
+
 ### Some Elastic Weirdness
-When you first try to load up your Elastic instance, you may see this in your logs:
+When you first try to load up your ELK instance, you may see this in your logs:
 ```
 [elastic_3c3cdec4-8]: ERROR: [1] bootstrap checks failed
 [elastic_3c3cdec4-8]: [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
@@ -49,4 +51,23 @@ Another awesome feature is the animated dependency graph.  Click the *Dependenci
 ![Zipkin dependency graph](https://i.imgur.com/WtwRj02.gif)
 
 Good stuff!
-## Using Elasticsearch
+
+## Using ELK
+Getting up and running with ELK takes a little bit more elbow grease (but not *too* much).  First, let's quickly look back at what we added to our `tye.yaml` file:
+```yaml
+extensions:
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
+```
+Notice the *logPath* variable in there.  From the Tye docs:
+
+> :bulb: Tye can successfully launch Elastic stack without `logPath`, but ... It's *highly* recommended that you specify a path to store the logs and configuration (add to `.gitignore` if it's part of your repository). Kibana has some mandatory setup the first time you use it, and without persisting the data, you will have to go through it each time.
+
+Pay particular attention to the .gitignore bits in there.  You (most likely) don't want your log files added to your git repo, and you'll notice that this example's .gitignore has `.logs/` at the bottom.
+
+After this, the Tye docs are a bit out of date with the (as of December 2020) Kibana interface.  Here's how to get it going for the first time (remember to hit the Blazor app at least once to get a few logs out there):
+
+![ELK Setup](https://i.imgur.com/d0p1Q0p.gif)
+
+As long as you don't delete your `.logs` folder, you should only have to do this initial setup one time.  At this point, you now have all sorts of super useful info that you can search through the Kibana interface.  There is so much that you can do with this, so please take a look at the [Kibana docs](https://www.elastic.co/guide/en/kibana/current/introduction.html).
