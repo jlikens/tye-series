@@ -43,6 +43,7 @@ Zipkin is pretty neat, and the ease with which Tye can add it to your distribute
 Back in the Tye Dashboard, load up the HTTPS binding for *frontend-server*.  Add a few todos, add a few people, and load up the weather page.  Then, hop back over to the Zipkin dashboard and click *Run Query*.  Now you should see some entries, and you can click on any to drill down.  I encourage you to poke around on the [Zipkin docs](https://zipkin.io/) to understand how it works, but here are the main things to know.
 
 First, for any call, you can see the call time and dependency chain.  After adding three people and three todos, I looked at the call for the People page and got this little gem:
+
 ![Zipkin call trace](https://i.imgur.com/nX4EUrM.png)
 
 Pretty cool, right?
