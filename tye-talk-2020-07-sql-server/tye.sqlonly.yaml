@@ -1,0 +1,19 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: tye-talk-2020-07-sql-server
+services:
+- name: sqlserver-usidore
+  image: mcr.microsoft.com/mssql/server:2019-latest
+  bindings:
+  - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=Password1!
+    containerPort: 1433
+    port: 21433 # Uncomment this line to run with a static external port of 21433
+  env:
+  - name: ACCEPT_EULA
+    value: y
+  - name: SA_PASSWORD
+    value: Password1!
