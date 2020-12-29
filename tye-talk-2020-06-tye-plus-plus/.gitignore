@@ -339,5 +339,8 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
+# Microsoft Tye
+.tye/
+
 # Elastic logs
 .logs/
