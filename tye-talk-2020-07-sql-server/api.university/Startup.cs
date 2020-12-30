@@ -1,18 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.university.Data;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace api.university
 {
@@ -24,20 +19,6 @@ namespace api.university
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddSingleton<IConfig>(Configuration.GetSection("CustomConfig")?.Get<Config>());
-
-            AddDbContexts(services);
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.university", Version = "v1" });
-            });
-        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,34 +45,20 @@ namespace api.university
             TrySeedDatabase(app);
         }
 
-        private void TrySeedDatabase(IApplicationBuilder app)
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
         {
-            var config = app.ApplicationServices.GetService<IConfig>();
+            services.AddSingleton<IConfig>(Configuration.GetSection("CustomConfig")?.Get<Config>());
 
-            // Seed the database, if enabled
-            if (config?.SeedDatabase == true)
+            AddDbContexts(services);
+
+            services.AddAutoMapper(typeof(MappingProfiles.ModelsToResources));
+
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
             {
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
-                    SchoolContextDbInitializer.Initialize(dbContext);
-                }
-            }
-        }
-
-        private void TryRunMigrations(IApplicationBuilder app)
-        {
-            var config = app.ApplicationServices.GetService<IConfig>();
-
-            // Do DB migratons, if enabled
-            if (config?.RunDbMigrations == true)
-            {
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var db = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
-                    db.Database.Migrate();
-                }
-            }
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.university", Version = "v1" });
+            });
         }
 
         private void AddDbContexts(IServiceCollection services)
@@ -109,13 +76,43 @@ namespace api.university
             });
 
             // Add School Context
-            services.AddDbContext<SchoolContext>(opt =>
+            services.AddDbContext<Data.SchoolContext>(opt =>
             {
                 // Get from Tye if available, otherwise from appsettings
                 var connectionString = Configuration.GetConnectionString("sqlserver-usidore") ?? "name=University";
                 opt.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(10));
                 debugLogging(opt);
             }, ServiceLifetime.Transient);
+        }
+
+        private void TryRunMigrations(IApplicationBuilder app)
+        {
+            var config = app.ApplicationServices.GetService<IConfig>();
+
+            // Do DB migratons, if enabled
+            if (config?.RunDbMigrations == true)
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
+                    db.Database.Migrate();
+                }
+            }
+        }
+
+        private void TrySeedDatabase(IApplicationBuilder app)
+        {
+            var config = app.ApplicationServices.GetService<IConfig>();
+
+            // Seed the database, if enabled
+            if (config?.SeedDatabase == true)
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
+                    Data.SchoolContextDbInitializer.Initialize(dbContext);
+                }
+            }
         }
     }
 }

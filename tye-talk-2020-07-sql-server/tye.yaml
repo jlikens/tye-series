@@ -27,7 +27,7 @@ services:
   bindings:
   - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=${env:SA_PASSWORD}
     containerPort: 1433
-    # port: 21433 # Uncomment this line to run with a static external port
+    port: 21433 # Uncomment this line to run with a static external port, or comment it out to run with a dynamic external port
   env:
   - name: ACCEPT_EULA
     value: y

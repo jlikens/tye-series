@@ -34,6 +34,10 @@ namespace frontend.Server
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-todo");
             });
+            services.AddHttpClient<api.universityApi.IUniversityApiClient, api.universityApi.UniversityApiClient>(client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("api-university");
+            });
             services.AddHttpClient<api.weatherApi.IWeatherApiClient, api.weatherApi.WeatherApiClient>(client =>
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-weather");

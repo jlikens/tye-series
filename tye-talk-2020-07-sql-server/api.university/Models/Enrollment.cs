@@ -3,11 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.university.Models
 {
-    public enum Grade
-    {
-        A, B, C, D, F
-    }
-
     public class Enrollment
     {
         public int EnrollmentID { get; set; }
