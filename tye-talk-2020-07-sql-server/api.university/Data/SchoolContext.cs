@@ -3,20 +3,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.university.Data
 {
-    public class SchoolContext : DbContext
+    public partial class SchoolContext : DbContext
     {
         public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
         {
         }
 
+        public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<Student> Students { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
-        public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<Student> Students { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("name=University");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +38,11 @@ namespace api.university.Data
             modelBuilder.Entity<Person>().ToTable("Person");
 
             modelBuilder.Entity<CourseAssignment>()
-                .HasKey(c => new { c.CourseID, c.InstructorID });
+                .HasKey(c => new { c.CourseNumber, c.InstructorID });
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

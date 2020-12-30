@@ -25,7 +25,7 @@ services:
 - name: sqlserver-usidore
   image: mcr.microsoft.com/mssql/server:2019-latest
   bindings:
-  - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=Password1!
+  - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=${env:SA_PASSWORD}
     containerPort: 1433
     # port: 21433 # Uncomment this line to run with a static external port
   env:

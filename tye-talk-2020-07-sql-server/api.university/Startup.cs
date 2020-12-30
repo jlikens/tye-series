@@ -61,6 +61,22 @@ namespace api.university
             });
 
             TryRunMigrations(app);
+            TrySeedDatabase(app);
+        }
+
+        private void TrySeedDatabase(IApplicationBuilder app)
+        {
+            var config = app.ApplicationServices.GetService<IConfig>();
+
+            // Seed the database, if enabled
+            if (config?.SeedDatabase == true)
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
+                    SchoolContextDbInitializer.Initialize(dbContext);
+                }
+            }
         }
 
         private void TryRunMigrations(IApplicationBuilder app)
@@ -101,6 +117,5 @@ namespace api.university
                 debugLogging(opt);
             }, ServiceLifetime.Transient);
         }
-
     }
 }

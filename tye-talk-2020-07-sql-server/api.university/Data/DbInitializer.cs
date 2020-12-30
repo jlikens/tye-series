@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using api.university.Models;
 
 namespace api.university.Data
 {
-    public static class DbInitializer
+    public static class SchoolContextDbInitializer
     {
         public static void Initialize(SchoolContext context)
         {
@@ -79,25 +77,25 @@ namespace api.university.Data
 
             var courses = new Course[]
             {
-                new Course {CourseID = 1050, Title = "Chemistry",      Credits = 3,
+                new Course {CourseNumber = 1050, Title = "Chemistry",      Credits = 3,
                     DepartmentID = departments.Single( s => s.Name == "Engineering").DepartmentID
                 },
-                new Course {CourseID = 4022, Title = "Microeconomics", Credits = 3,
+                new Course {CourseNumber = 4022, Title = "Microeconomics", Credits = 3,
                     DepartmentID = departments.Single( s => s.Name == "Economics").DepartmentID
                 },
-                new Course {CourseID = 4041, Title = "Macroeconomics", Credits = 3,
+                new Course {CourseNumber = 4041, Title = "Macroeconomics", Credits = 3,
                     DepartmentID = departments.Single( s => s.Name == "Economics").DepartmentID
                 },
-                new Course {CourseID = 1045, Title = "Calculus",       Credits = 4,
+                new Course {CourseNumber = 1045, Title = "Calculus",       Credits = 4,
                     DepartmentID = departments.Single( s => s.Name == "Mathematics").DepartmentID
                 },
-                new Course {CourseID = 3141, Title = "Trigonometry",   Credits = 4,
+                new Course {CourseNumber = 3141, Title = "Trigonometry",   Credits = 4,
                     DepartmentID = departments.Single( s => s.Name == "Mathematics").DepartmentID
                 },
-                new Course {CourseID = 2021, Title = "Composition",    Credits = 3,
+                new Course {CourseNumber = 2021, Title = "Composition",    Credits = 3,
                     DepartmentID = departments.Single( s => s.Name == "English").DepartmentID
                 },
-                new Course {CourseID = 2042, Title = "Literature",     Credits = 4,
+                new Course {CourseNumber = 2042, Title = "Literature",     Credits = 4,
                     DepartmentID = departments.Single( s => s.Name == "English").DepartmentID
                 },
             };
@@ -127,35 +125,35 @@ namespace api.university.Data
             var courseInstructors = new CourseAssignment[]
             {
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Chemistry" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Chemistry" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Harui").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Microeconomics" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Macroeconomics" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Calculus" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Trigonometry" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Harui").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Composition" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Composition" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
                     },
                 new CourseAssignment {
-                    CourseID = courses.Single(c => c.Title == "Literature" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Literature" ).CourseNumber,
                     InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
                     },
             };
@@ -167,56 +165,56 @@ namespace api.university.Data
             {
                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Chemistry" ).CourseNumber,
                     Grade = Grade.A
                 },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                    CourseID = courses.Single(c => c.Title == "Microeconomics" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Microeconomics" ).CourseNumber,
                     Grade = Grade.C
                     },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                    CourseID = courses.Single(c => c.Title == "Macroeconomics" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Macroeconomics" ).CourseNumber,
                     Grade = Grade.B
                     },
                     new Enrollment {
                         StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                    CourseID = courses.Single(c => c.Title == "Calculus" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Calculus" ).CourseNumber,
                     Grade = Grade.B
                     },
                     new Enrollment {
                         StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                    CourseID = courses.Single(c => c.Title == "Trigonometry" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Trigonometry" ).CourseNumber,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                    CourseID = courses.Single(c => c.Title == "Composition" ).CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Composition" ).CourseNumber,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Anand").ID,
-                    CourseID = courses.Single(c => c.Title == "Chemistry" ).CourseID
+                    CourseNumber = courses.Single(c => c.Title == "Chemistry" ).CourseNumber
                     },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Anand").ID,
-                    CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Microeconomics").CourseNumber,
                     Grade = Grade.B
                     },
                 new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Barzdukas").ID,
-                    CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Chemistry").CourseNumber,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Li").ID,
-                    CourseID = courses.Single(c => c.Title == "Composition").CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Composition").CourseNumber,
                     Grade = Grade.B
                     },
                     new Enrollment {
                     StudentID = students.Single(s => s.LastName == "Justice").ID,
-                    CourseID = courses.Single(c => c.Title == "Literature").CourseID,
+                    CourseNumber = courses.Single(c => c.Title == "Literature").CourseNumber,
                     Grade = Grade.B
                     }
             };
@@ -226,7 +224,7 @@ namespace api.university.Data
                 var enrollmentInDataBase = context.Enrollments.Where(
                     s =>
                             s.Student.ID == e.StudentID &&
-                            s.Course.CourseID == e.CourseID).SingleOrDefault();
+                            s.Course.CourseNumber == e.CourseNumber).SingleOrDefault();
                 if (enrollmentInDataBase == null)
                 {
                     context.Enrollments.Add(e);
