@@ -133,9 +133,11 @@ Tye makes the *sqlserver-usidore* connection string available via the definition
 {
   "ConnectionStrings": {
     "University": "Server=localhost,21433;Database=Usidore;MultipleActiveResultSets=true;User ID=sa;Password=Password1!"
-  },
+  }
 }
 ```
+
+This pattern allows you to run in both Tye and non-Tye environments, as needed.
 
 ## What Did We Gain?
 First, we've got a fully functional, self-contained instance of SQL Server 2019.  You can connect to it with SSMS and tinker with it just as you would any other SQL Server instance.  This database gets completely torn down and recreated every time Tye is restarted.  Nobody else will be monkeying with it while you're debugging, so you can be sure everything you see in the database is coming from your local dev environment.
