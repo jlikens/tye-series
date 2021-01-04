@@ -1,7 +1,29 @@
 ﻿@page "/"
+@inject HttpClient Http
+@inject IJSRuntime js
+@using Microsoft.JSInterop
 
-<h1>Hello, world!</h1>
+@if (gitResponse == null)
+{
+    <p><em>Loading docs...</em></p>
+}
+else
+{
+    @((MarkupString)gitResponse)
+}
 
-Welcome to your new app.
+@code {
+    private string gitResponse = null;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override async Task OnInitializedAsync()
+    {
+        var raw = await Http.GetStringAsync("https://raw.githubusercontent.com/jlikens/tye-series/master/tye-talk-2020-05-tye-ahoy/README.md");
+        gitResponse = Markdig.Markdown.ToHtml(raw);
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        js.InvokeVoidAsync("Prism.highlightAll");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}
