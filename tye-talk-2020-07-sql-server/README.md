@@ -33,3 +33,10 @@ Next is the bit that brings in SQL Server 2019.  Tye uses a format that is quite
 If we didn't specify the `port: 21433`, we'd get a dynamic port in much the same way that we get dynamic ports for our actual projects.  In this case, since I wanted to mess around with the SQL Server instance in [SSMS](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15), I decided to force the external port to be 21433 to avoid having to re-connect to the instance every time I reran Tye.
 
 To make things interesting, I also added in some data migrations and data seeding to show how you can use Tye plus EF migrations to quickly spool up a database with a known starting configuration.  Along with what I hope are the obvious benefits of data migrations, using seeding in this fashion is massively useful for testing weird data scenarios.  If you can be diligent about maintaining both the migrations and the seeding, you can ensure that local development always has useful, interesting data to test with that gets wiped and recreated each time you start a debugging session.
+
+## What Did We Gain?
+First, we've got a fully functional, self-contained instance of SQL Server 2019.  You can connect to it with SSMS and tinker with it just as you would any other SQL Server instance.  This database gets completely torn down and recreated every time Tye is restarted.  Nobody else will be monkeying with it while you're debugging, so you can be sure everything you see in the database is coming from your local dev environment.
+
+Second, as with everything in Tye, you get a log viewer for this SQL Server instance.  This is cool for detecting weird stuff that might be happening on the server itself.
+
+Third, while not explicitly something that Tye gives you, you do get the ability to run migrations and seeding to get this database into a known state each time you start a debugging session.  That said, Tye does make it super easy to move into this kind of space, so I think that it deserves a little bit of credit for making this a really easy, viable option for local development.
