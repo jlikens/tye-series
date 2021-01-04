@@ -34,6 +34,109 @@ If we didn't specify the `port: 21433`, we'd get a dynamic port in much the same
 
 To make things interesting, I also added in some data migrations and data seeding to show how you can use Tye plus EF migrations to quickly spool up a database with a known starting configuration.  Along with what I hope are the obvious benefits of data migrations, using seeding in this fashion is massively useful for testing weird data scenarios.  If you can be diligent about maintaining both the migrations and the seeding, you can ensure that local development always has useful, interesting data to test with that gets wiped and recreated each time you start a debugging session.
 
+### Code Changes
+The main change in this solution was the addition of `api.university`.  In `Startup.cs`, we added this code:
+
+```csharp
+namespace api.university
+{
+    ...
+    
+    public class Startup
+    {
+        ...
+        
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            ...
+            
+            TryRunMigrations(app);
+            TrySeedDatabase(app);
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            
+            ...
+
+            AddDbContexts(services);
+
+            ...
+        }
+
+        private void AddDbContexts(IServiceCollection services)
+        {
+            var debugLogging = new Action<DbContextOptionsBuilder>(opt =>
+            {
+#if DEBUG
+                // This will log EF-generated SQL commands to the console
+                opt.UseLoggerFactory(LoggerFactory.Create(builder => { builder.AddConsole(); }));
+                // This will log the actual params for those commands to the console
+                opt.EnableSensitiveDataLogging();
+                // Log more detail on errors for debugging purposes
+                opt.EnableDetailedErrors();
+#endif
+            });
+
+            // Add School Context
+            services.AddDbContext<Data.SchoolContext>(opt =>
+            {
+                // Get from Tye if available, otherwise from appsettings
+                var connectionString = Configuration.GetConnectionString("sqlserver-usidore") ?? "name=University";
+                opt.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(10));
+                debugLogging(opt);
+            }, ServiceLifetime.Transient);
+        }
+
+        private void TryRunMigrations(IApplicationBuilder app)
+        {
+            var config = app.ApplicationServices.GetService<IConfig>();
+
+            // Do DB migratons, if enabled
+            if (config?.RunDbMigrations == true)
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
+                    db.Database.Migrate();
+                }
+            }
+        }
+
+        private void TrySeedDatabase(IApplicationBuilder app)
+        {
+            var config = app.ApplicationServices.GetService<IConfig>();
+
+            // Seed the database, if enabled
+            if (config?.SeedDatabase == true)
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
+                    Data.SchoolContextDbInitializer.Initialize(dbContext);
+                }
+            }
+        }
+    }
+}
+```
+
+Everything should be relatively self-explanatory.  The main bit that uses `Tye` is this line in `AddDbContexts`:
+
+```csharp
+var connectionString = Configuration.GetConnectionString("sqlserver-usidore") ?? "name=University";
+```
+
+Tye makes the *sqlserver-usidore* connection string available via the definition in `tye.yaml`.  If we fail to get that connection string, we fall back to the `appSettings.json` variant:
+
+```json
+{
+  "ConnectionStrings": {
+    "University": "Server=localhost,21433;Database=Usidore;MultipleActiveResultSets=true;User ID=sa;Password=Password1!"
+  },
+}
+```
+
 ## What Did We Gain?
 First, we've got a fully functional, self-contained instance of SQL Server 2019.  You can connect to it with SSMS and tinker with it just as you would any other SQL Server instance.  This database gets completely torn down and recreated every time Tye is restarted.  Nobody else will be monkeying with it while you're debugging, so you can be sure everything you see in the database is coming from your local dev environment.
 
