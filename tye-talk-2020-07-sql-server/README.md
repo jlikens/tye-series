@@ -1,7 +1,7 @@
 # tye-talk-2020-07-sql-server
 As a quick detour, I found it pretty cool that we can use Tye to quickly drop a local, isolated SQL Server instance into our local dev environment.  To test this out, I tossed a version of the [Contoso University](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-5.0) data structures into a new microservice `api.university`, added a SQL Server 2019 container to my `tye.yaml`, used the `GetConnectionString` extension method from `Microsoft.Extensions.Configuration.Abstractions`, and away we go!  Oh, you'll also notice a new navigation entry in the `frontend` app that loads up all of the Students from the university.
 
-**Quick Note**: If you just want to use Tye to get a SQL Server instance running, you can run `tye run tye.sqlonlyyaml`!
+**Quick Note**: If you just want to use Tye to get a SQL Server instance running, you can run `tye run tye.sqlonly.yaml`!
 
 So how does this work?  Let's take a peek at what's changed in the `tye.yaml` since our [previous example](../tye-talk-2020-06-tye-plus-plus):
 
