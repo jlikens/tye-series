@@ -1,0 +1,31 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: tye-talk-2020-08-replication
+services:
+- name: sqlserver-usidore
+  image: mcr.microsoft.com/mssql/server:2019-latest
+  bindings:
+  - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=${env:SA_PASSWORD}
+    containerPort: 1433
+    port: 21433 # Uncomment this line to run with a static external port of 21433
+  env:
+  - name: ACCEPT_EULA
+    value: y
+  - name: SA_PASSWORD
+    value: Password1!
+- name: redis
+  image: redis
+  bindings:
+  - port: 36379
+    containerPort: 6379
+    connectionString: "${host}:${port}" 
+- name: redis-commander
+  image: rediscommander/redis-commander:latest
+  args: -p 8081:8081
+  env:
+  - name: REDIS_HOSTS
+    value: localhost:36379
