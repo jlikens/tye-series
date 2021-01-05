@@ -42,7 +42,10 @@ services:
     connectionString: "${host}:${port}" 
 - name: redis-commander
   image: rediscommander/redis-commander:latest
-  args: -p 8081:8081
+  bindings:
+  - port: 38081
+    protocol: http
+    containerPort: 8081
   env:
   - name: REDIS_HOSTS
-    value: localhost:36379
+    value: local:redis:6379
