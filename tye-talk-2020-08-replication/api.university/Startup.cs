@@ -7,7 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RedLockNet.SERedis;
+using RedLockNet.SERedis.Configuration;
 using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace api.university
 {
@@ -56,6 +60,7 @@ namespace api.university
             AddDistributedCache(services);
             ScanAndRegister(services);
             DecorateRegistrations(services);
+            AddRedLock(services);
 
             services.AddSingleton<IConfig>(Configuration.GetSection("CustomConfig")?.Get<Config>());
             services.AddAutoMapper(typeof(MappingProfiles.ModelsToResources));
@@ -65,6 +70,20 @@ namespace api.university
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.university", Version = "v1" });
             });
+        }
+
+        private void AddRedLock(IServiceCollection services)
+        {
+            var redisConnectionString = Configuration.GetConnectionString("redis") ?? Configuration.GetConnectionString("HostedRedis");
+            var host = redisConnectionString.Split(':')[0];
+            var port = redisConnectionString.Split(':')[1];
+
+            var endPoints = new List<RedLockEndPoint>
+            {
+                new DnsEndPoint(host, int.Parse(port)),
+            };
+            var redlockFactory = RedLockFactory.Create(endPoints);
+            services.AddSingleton<RedLockFactory>(redlockFactory);
         }
 
         private void AddDbContexts(IServiceCollection services)
@@ -125,12 +144,20 @@ namespace api.university
             // Do DB migratons, if enabled
             if (config?.RunDbMigrations == true)
             {
-                using (var scope = app.ApplicationServices.CreateScope())
+                _startupLogger.LogInformation("Beginning database migrations");
+                using var redlock = app.ApplicationServices.GetService<RedLockFactory>().CreateLock($"api.university.{nameof(TryRunMigrations)}", TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
+                if (redlock.IsAcquired)
                 {
-                    var db = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
+                    using var scope = app.ApplicationServices.CreateScope();
 
+                    var db = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
                     db.Database.Migrate();
                 }
+                else
+                {
+                    throw new Exception("Unable to acquire Redis lock.  Migrations cannot be safely run!");
+                }
+                _startupLogger.LogInformation("Completed database migrations");
             }
         }
 
@@ -141,11 +168,20 @@ namespace api.university
             // Seed the database, if enabled
             if (config?.SeedDatabase == true)
             {
-                using (var scope = app.ApplicationServices.CreateScope())
+                _startupLogger.LogInformation("Beginning database seeding");
+                using var redlock = app.ApplicationServices.GetService<RedLockFactory>().CreateLock($"api.university.{nameof(TrySeedDatabase)}", TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
+                if (redlock.IsAcquired)
                 {
+                    using var scope = app.ApplicationServices.CreateScope();
+
                     var dbContext = scope.ServiceProvider.GetRequiredService<Data.SchoolContext>();
                     Data.SchoolContextDbInitializer.Initialize(dbContext);
                 }
+                else
+                {
+                    throw new Exception("Unable to acquire Redis lock.  Database seeding cannot be safely run!");
+                }
+                _startupLogger.LogInformation("Completed database seeding");
             }
         }
     }
