@@ -27,3 +27,5 @@ For examples that use containers:
   * We use Tye to quickly add in [Zipkin](https://zipkin.io/) and [Elastic Stack](https://www.elastic.co/elastic-stack) to take our local debugging and dependency monitoring experience to the next level
 * [tye-talk-2020-07-sql-server](tye-talk-2020-07-sql-server)
   * We add in a SQL Server container, run some database migrations against it, and have our own freshly initialized local development database
+* [tye-talk-2020-08-replication](tye-talk-2020-08-replication)
+  * We dive into local load balancing to test distributed locking and distributed caching with Redis
