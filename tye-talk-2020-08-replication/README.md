@@ -15,14 +15,58 @@ First, there's [Scrutor](https://github.com/khellang/Scrutor), which provides:
 
 > Assembly scanning and decoration extensions for Microsoft.Extensions.DependencyInjection
 
-In short, it's easy, unobstrusive, and simple to get convention-based `IFoo` -> `Foo` registrations as well as decorating existing registrations (more on this later).
+The vast majority of all dependency injection scenarios revolve around creating an interface, say `IFoo`, and a single implementaton of that interface, `Foo`.  Scrutor makes it quick and easy to automatically scan the assemblies in your application and automatically register all `IFoo` -> `Foo` registrations.  Additionally, you can use it to decorate an existing `IFoo` -> `Foo` with `FooDecorated`, allowing you to shim in an overarching implementation of `IFoo` (more on this later).
 
 ### Redis
-Next, we've added [Redis](https://redis.io/) to the mix.  For the uninitiated, think of Redis as a cache that can be accessed by anyone interested in sharing a blob of memory.  This means that multiple applications, and multiple instances of a single application, can all participate in a shared memory cache.  This enables scenarios whereby all instances of a particular app can ensure they have the latest and greatest data, regardless of which instance was responsible for first loading that data into the cache.
+Next, we've added [Redis](https://redis.io/) to the mix.  Redis is a distributed cache.  For the uninitiated, think of this as the same as a normal in-process memory cache, except it can be shared across an arbitrary number of client applications.  This means that multiple applications, and multiple instances of a single application, can all participate in working with a shared memory cache.  This enables scenarios whereby all instances of a particular app can ensure they have the latest and greatest data, regardless of which instance was responsible for first loading that data into the cache.
 
 On a related note, we will also be using an implementation of the [Redlock algorithm](https://redis.io/topics/distlock).  This essentially enables the equivalent of thread-locking at the distributed system.  For example, assume you have two instances of an application, each of which performs the same startup code.  This startup code cannot safely be run multiple times simultaneously.  How do we prevent instance A from smashing instance B's startup, and vice versa?
 
 ### Redis Commander
+One really cool aspect of Tye is its ability to automatically pull down and run utility containers.  We saw a bit of this with our [Tye Plus Plus](..\tye-talk-2020-06-tye-plus-plus) example, wherein we pulled in a distributed tracing tool (Zipkin) and a log aggregator (ELK) with almost no effort.  In this example, we'll be pulling in [Redis Commander](https://www.bing.com/search?form=MOZLBR&pc=MOZI&q=redis+commander) and hook it up to our local Redis instance just in case we want to poke around in the Redis cache.
+
+### Replicas
+With a single line of yaml, Tye lets you turn on as many copies of a service as you want.  We'll be using this feature in this example to show how to test distributed locking and distributed caching within our `api.university` project.
+
+## Tye Updates
+Let's take a peek at what we've added to our `tye.yaml` from the [previous example](../tye-talk-2020-07-sql-server).
+
+```yaml
+name: tye-talk-2020-08-replication
+...
+services:
+...
+- name: api-university
+  project: api.university/api.university.csproj
+  replicas: 3
+- name: redis
+  image: redis
+  bindings:
+  - port: 36379
+    containerPort: 6379
+    connectionString: "${host}:${port}" 
+- name: redis-commander
+  image: rediscommander/redis-commander:latest
+  bindings:
+  - port: 38081
+    protocol: http
+    containerPort: 8081
+  env:
+  - name: REDIS_HOSTS
+    value: local:redis:6379
+```
+
+First note that we added `replicas: 3` to `api-university`.  This will launch three instances of this service when we run Tye.
+
+Next, note that we pulled in both `redis` and `rediscommander` by referencing these docker images.  Depending on your environment's reserver ports, you may need to change the `port` for `redis`.
+
+> Aside: On Windows, to check your reserved ports, run this command: `netsh int ipv4 show excludedportrange protocol=tcp`
+
+## Code Updates
+
+### Caching Layer
+
+### Startup Code
 
 * Scrutor
 * Add replicas to university service
