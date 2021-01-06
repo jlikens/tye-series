@@ -1,7 +1,9 @@
 # tye-series
-A code series that shows practical, real-world scenarios involving distributed applications and [Project Tye](https://github.com/dotnet/tye).  In general, each example builds upon the ideasand code of the previous one, but each is also designed to run on its own.
+This is a code series that shows practical, real-world scenarios involving distributed applications and [Project Tye](https://github.com/dotnet/tye).  In general, each example builds upon the ideas and code of the previous one, but each is also designed to run on its own.  My goal is to provide an example that evolves over time rather than just the "end result" so you can see what changes from scenario to scenario.
 
 The first four parts of the series are there to set up common scenarios you will encounter when developing distributed apps.  If you want to skip right to the good stuff, hop into the [5th](tye-talk-2020-05-tye-ahoy) in the series where we actually start using Tye.
+
+I'm a relative newcomer to the world of Tye, so if anyone has any feedback about anything, please [let me know](../../issues)!  Also, if you wanna keep track of what's going on in the Tye codebase, the Tye team claims that they'll post [here](https://github.com/dotnet/tye/issues/251) every two weeks-ish (YMMV).
 
 ## The Story
 This series started life as the demo code for a dev talk.  Each piece in the series builds upon the ideas of the previous.  We start with a simple little Blazor app.  Over time, we add in co-dependent microservices, distributed monitoring and logging, local databases, local load balancing, and more!  After the 4th in the series, we start to use Tye to make our lives easier when it comes to inner-loop development of this distributed app.
