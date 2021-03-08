@@ -32,7 +32,7 @@ services:
     port: 21433 # Uncomment this line to run with a static external port
   env:
   - ACCEPT_EULA=y
-  - SA_PASSWORD=password
+  - SA_PASSWORD=Password1!
 # PostgreSQL
 # Adminer info: host.docker.internal:25432
 - name: postgres-spintax
