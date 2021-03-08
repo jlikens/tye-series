@@ -1,0 +1,55 @@
+﻿@page "/people"
+@using frontend.Shared
+@inject HttpClient Http
+
+<h1>People</h1>
+
+@if (people == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Address</th>
+                <th>ID</th>
+                <th>Todos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in people)
+            {
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>@person.EmailAddress</td>
+                    <td>@person.Id</td>
+                    <td>
+                        @if (person.TodoItems != null)
+                        {
+                            <ul>
+                                @foreach (var todo in person.TodoItems)
+                                {
+                                    <li>@todo.Name (@todo.Id) </li>
+                                }
+                            </ul>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private PersonResource[] people;
+
+    protected override async Task OnInitializedAsync()
+    {
+        people = await Http.GetFromJsonAsync<PersonResource[]>("Person");
+    }
+}
