@@ -10,13 +10,14 @@ extensions:
 - name: elastic
   logPath: ./.logs
 services:
+- name: api-books
+  project: api.books/api.books.csproj
 - name: api-person
   project: api.person/api.person.csproj
 - name: api-todo
   project: api.todo/api.todo.csproj
 - name: api-university
   project: api.university/api.university.csproj
-  replicas: 3
 - name: api-weather
   project: api.weather/api.weather.csproj
 - name: frontend-client
