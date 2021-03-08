@@ -31,10 +31,8 @@ services:
     containerPort: 1433
     port: 21433 # Uncomment this line to run with a static external port
   env:
-  - name: ACCEPT_EULA
-    value: y
-  - name: SA_PASSWORD
-    value: password
+  - ACCEPT_EULA=y
+  - SA_PASSWORD=password
 # PostgreSQL
 # Adminer info: host.docker.internal:25432
 - name: postgres-spintax
@@ -44,10 +42,8 @@ services:
     containerPort: 5432
     port: 25432 # Uncomment this line to run with a static external port
   env:
-  - name: POSTGRES_USER
-    value: postgres
-  - name: POSTGRES_PASSWORD
-    value: password
+  - POSTGRES_USER=postgres
+  - POSTGRES_PASSWORD=password
 # MySQL
 # Adminer info: host.docker.internal:23306
 - name: mysql-jamilious
@@ -60,16 +56,10 @@ services:
   - name: dbdata
     target: /var/lib/mysql
   env:
-  - name: MYSQL_ROOT_PASSWORD
-    value: password
-  - name: MYSQL_USER
-    value: mysql
-  - name: MYSQL_PASSWORD
-    value: password    
-  - name: MYSQL_DATABASE
-    value: Jamilious
-  - name: ADMINER_PLUGINS
-    value: 
+  - MYSQL_ROOT_PASSWORD=password
+  - MYSQL_USER=mysql
+  - MYSQL_PASSWORD=password    
+  - MYSQL_DATABASE=Jamilious
 # Database Web Admin
 - name: adminer
   image: adminer
@@ -92,5 +82,4 @@ services:
     protocol: http
     containerPort: 8081
   env:
-  - name: REDIS_HOSTS
-    value: local:redis:6379
+  - REDIS_HOSTS=local:redis:6379
