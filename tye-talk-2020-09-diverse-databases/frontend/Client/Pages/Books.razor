@@ -15,7 +15,11 @@ else
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Author</th>
+                <th>Published</th>
+                <th>Pages</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +27,11 @@ else
             {
                 <tr>
                     <td>@book.Id</td>
-                    <td>@book.FullName</td>
+                    <td>@book.Title</td>
+                    <td>@book.Genre</td>
+                    <td>@book.Author.FullName</td>
+                    <td>@book.PublishDate.ToString("yyyy")</td>
+                    <td>@book.PageCount</td>
                 </tr>
             }
         </tbody>
@@ -31,10 +39,10 @@ else
 }
 
 @code {
-    private StudentResource[] books;
+    private BookResource[] books;
 
     protected override async Task OnInitializedAsync()
     {
-        books = await Http.GetFromJsonAsync<StudentResource[]>("Students");
+        books = await Http.GetFromJsonAsync<BookResource[]>("Books");
     }
 }

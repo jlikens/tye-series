@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace frontend.Server
 {
@@ -26,6 +23,10 @@ namespace frontend.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddHttpClient<api.bookApi.IBookApiClient, api.bookApi.BookApiClient>(client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("api-book");
+            });
             services.AddHttpClient<api.personApi.IPersonApiClient, api.personApi.PersonApiClient>(client =>
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-person");

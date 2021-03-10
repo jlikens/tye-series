@@ -10,7 +10,7 @@ extensions:
 - name: elastic
   logPath: ./.logs
 services:
-- name: api-books
+- name: api-book
   project: api.books/api.books.csproj
 - name: api-person
   project: api.person/api.person.csproj
@@ -53,9 +53,10 @@ services:
   - connectionString: Server=${host};Port=${port};Database=Jamilious;User ID=${env:MYSQL_USER};Password=${env:MYSQL_PASSWORD}
     containerPort: 3306
     port: 23306 # Uncomment this line to run with a static external port
-  volumes:
-  - name: dbdata
-    target: /var/lib/mysql
+  # Uncomment the following lines to make storage persistent across runs
+  #volumes:
+  #- name: dbdata
+  #  target: /var/lib/mysql
   env:
   - MYSQL_ROOT_PASSWORD=password
   - MYSQL_USER=mysql

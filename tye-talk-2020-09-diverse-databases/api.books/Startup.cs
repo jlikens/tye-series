@@ -176,7 +176,7 @@ namespace api.books
                     using var scope = app.ApplicationServices.CreateScope();
 
                     var dbContext = scope.ServiceProvider.GetRequiredService<Data.BookContext>();
-                    Data.SchoolContextDbInitializer.Initialize(dbContext);
+                    Data.BookContextDbInitializer.Initialize(dbContext);
                 }
                 else
                 {

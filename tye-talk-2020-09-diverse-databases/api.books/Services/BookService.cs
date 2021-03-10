@@ -28,7 +28,7 @@ namespace api.books.Services
 
         public async Task<BookResource> GetBookAsync(int bookId)
         {
-            var model = await _bookContext.Books.Include(x => x.Author).FirstOrDefaultAsync(s => s.ID == bookId);
+            var model = await _bookContext.Books.Include(x => x.Author).FirstOrDefaultAsync(s => s.Id == bookId);
             var resource = _mapper.Map<BookResource>(model);
             return resource;
         }

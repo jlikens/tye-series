@@ -1,6 +1,8 @@
-﻿namespace api.books.Resources
+﻿using System;
+
+namespace frontend.Shared
 {
-    public class PersonResource
+    public class AuthorResource
     {
         public int Id { get; set; }
 

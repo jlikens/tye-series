@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace api.books.Resources
+namespace frontend.Shared
 {
     public class BookResource
     {
@@ -10,7 +10,7 @@ namespace api.books.Resources
 
         public DateTime PublishDate { get; set; }
 
-        public PersonResource Author { get; set; }
+        public AuthorResource Author { get; set; }
 
         public int PageCount { get; set; }
 
