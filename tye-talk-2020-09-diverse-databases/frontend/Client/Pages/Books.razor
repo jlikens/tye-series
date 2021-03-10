@@ -1,0 +1,40 @@
+﻿@page "/books"
+@using frontend.Shared
+@inject HttpClient Http
+
+<h1>Books</h1>
+<p>Demonstrates loading data out of a MySQL-backed API.</p>
+
+@if (books == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in books)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.FullName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private StudentResource[] books;
+
+    protected override async Task OnInitializedAsync()
+    {
+        books = await Http.GetFromJsonAsync<StudentResource[]>("Students");
+    }
+}
