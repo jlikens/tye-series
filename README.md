@@ -34,4 +34,4 @@ For examples that use containers:
 * [tye-talk-08-replication](tye-talk-08-replication)
   * We dive into local load balancing to test distributed locking and distributed caching with Redis
 * [tye-talk-09-diverse-databases](tye-talk-09-diverse-databases)
-  * A quick diversion to demonstrate bootstrapping several of the more popular RDMBS platforms
+  * A quick diversion to demonstrate bootstrapping several of the more popular RDMBS platforms (SQL Server, MySQL, PostgreSQL)
