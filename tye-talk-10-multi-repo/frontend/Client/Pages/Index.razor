@@ -1,0 +1,29 @@
+﻿@page "/"
+@inject HttpClient Http
+@inject IJSRuntime js
+@using Microsoft.JSInterop
+
+@if (gitResponse == null)
+{
+    <p><em>Loading docs...</em></p>
+}
+else
+{
+    @((MarkupString)gitResponse)
+}
+
+@code {
+    private string gitResponse = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var raw = await Http.GetStringAsync("https://raw.githubusercontent.com/jlikens/tye-series/master/tye-talk-2020-09-diverse-databases/README.md");
+        gitResponse = Markdig.Markdown.ToHtml(raw);
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        js.InvokeVoidAsync("Prism.highlightAll");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}

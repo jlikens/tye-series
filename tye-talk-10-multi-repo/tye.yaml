@@ -1,0 +1,87 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: tye-talk-2020-09-diverse-databases
+extensions:
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
+services:
+- name: api-book
+  project: api.books/api.books.csproj
+- name: api-person
+  project: api.person/api.person.csproj
+- name: api-todo
+  project: api.todo/api.todo.csproj
+- name: api-university
+  project: api.university/api.university.csproj
+- name: api-weather
+  project: api.weather/api.weather.csproj
+- name: frontend-client
+  project: frontend/Client/frontend.Client.csproj
+- name: frontend-server
+  project: frontend/Server/frontend.Server.csproj
+# SQL Server
+- name: sqlserver-usidore
+  image: mcr.microsoft.com/mssql/server:2019-latest
+  bindings:
+  - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=${env:SA_PASSWORD}
+    containerPort: 1433
+    port: 21433 # Uncomment this line to run with a static external port
+  env:
+  - ACCEPT_EULA=y
+  - SA_PASSWORD=Password1!
+# PostgreSQL
+# Adminer info: host.docker.internal:25432
+- name: postgres-spintax
+  image: postgres
+  bindings:
+  - connectionString: Server=${host};Port=${port};Database=Spintax;User ID=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};Pooling=true
+    containerPort: 5432
+    port: 25432 # Uncomment this line to run with a static external port
+  env:
+  - POSTGRES_USER=postgres
+  - POSTGRES_PASSWORD=password
+# MySQL
+# Adminer info: host.docker.internal:23306
+- name: mysql-jamilious
+  image: mysql
+  bindings:
+  - connectionString: Server=${host};Port=${port};Database=Jamilious;User ID=${env:MYSQL_USER};Password=${env:MYSQL_PASSWORD}
+    containerPort: 3306
+    port: 23306 # Uncomment this line to run with a static external port
+  # Uncomment the following lines to make storage persistent across runs
+  #volumes:
+  #- name: dbdata
+  #  target: /var/lib/mysql
+  env:
+  - MYSQL_ROOT_PASSWORD=password
+  - MYSQL_USER=mysql
+  - MYSQL_PASSWORD=password    
+  - MYSQL_DATABASE=Jamilious
+# Database Web Admin
+- name: adminer
+  image: adminer
+  bindings:
+  - protocol: http
+    containerPort: 8080
+    port: 25480 # Uncomment this line to run with a static external port
+# Redis
+- name: redis
+  image: redis
+  bindings:
+  - port: 36379
+    containerPort: 6379
+    connectionString: "${host}:${port}" 
+# Redis admin
+- name: redis-commander
+  image: rediscommander/redis-commander:latest
+  bindings:
+  - port: 38081
+    protocol: http
+    containerPort: 8081
+  env:
+  - REDIS_HOSTS=local:redis:6379
