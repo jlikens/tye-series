@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace api.books
+namespace api.fruits
 {
     public class Startup
     {
@@ -33,7 +33,7 @@ namespace api.books
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "api.books v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "api.fruits v1"));
             }
 
             app.UseHttpsRedirection();
@@ -68,7 +68,7 @@ namespace api.books
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.books", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "api.fruits", Version = "v1" });
             });
         }
 
@@ -101,10 +101,10 @@ namespace api.books
             });
 
             // Add Database Context
-            services.AddDbContextPool<Data.BookContext>(opt =>
+            services.AddDbContextPool<Data.FruitContext>(opt =>
             {
                 // Get from Tye if available, otherwise from appsettings
-                var connectionString = Configuration.GetConnectionString("mysql-jamilious") ?? Configuration.GetConnectionString("Books");
+                var connectionString = Configuration.GetConnectionString("mariadb-can") ?? Configuration.GetConnectionString("Fruits");
                 Console.WriteLine(connectionString);
                 opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), opt => opt.EnableRetryOnFailure(10));
                 debugLogging(opt);
@@ -122,12 +122,12 @@ namespace api.books
 
         private void DecorateRegistrations(IServiceCollection services)
         {
-            services.Decorate<Services.IBookService, Services.CachingBookService>();
+            services.Decorate<Services.IFruitService, Services.CachingFruitService>();
         }
 
         private void ScanAndRegister(IServiceCollection services)
         {
-            foreach (var namespacePrefix in new[] { "api.books" })
+            foreach (var namespacePrefix in new[] { "api.fruits" })
             {
                 services.Scan(s =>
                 {
@@ -146,12 +146,12 @@ namespace api.books
             if (config?.RunDbMigrations == true)
             {
                 _startupLogger.LogInformation("Beginning database migrations");
-                using var redlock = app.ApplicationServices.GetService<RedLockFactory>().CreateLock($"api.books.{nameof(TryRunMigrations)}", TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
+                using var redlock = app.ApplicationServices.GetService<RedLockFactory>().CreateLock($"api.fruits.{nameof(TryRunMigrations)}", TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
                 if (redlock.IsAcquired)
                 {
                     using var scope = app.ApplicationServices.CreateScope();
 
-                    var db = scope.ServiceProvider.GetRequiredService<Data.BookContext>();
+                    var db = scope.ServiceProvider.GetRequiredService<Data.FruitContext>();
                     db.Database.Migrate();
                 }
                 else
@@ -170,13 +170,13 @@ namespace api.books
             if (config?.SeedDatabase == true)
             {
                 _startupLogger.LogInformation("Beginning database seeding");
-                using var redlock = app.ApplicationServices.GetService<RedLockFactory>().CreateLock($"api.books.{nameof(TrySeedDatabase)}", TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
+                using var redlock = app.ApplicationServices.GetService<RedLockFactory>().CreateLock($"api.fruits.{nameof(TrySeedDatabase)}", TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(1));
                 if (redlock.IsAcquired)
                 {
                     using var scope = app.ApplicationServices.CreateScope();
 
-                    var dbContext = scope.ServiceProvider.GetRequiredService<Data.BookContext>();
-                    Data.BookContextDbInitializer.Initialize(dbContext);
+                    var dbContext = scope.ServiceProvider.GetRequiredService<Data.FruitContext>();
+                    Data.FruitContextDbInitializer.Initialize(dbContext);
                 }
                 else
                 {
