@@ -56,7 +56,10 @@ namespace api.birds
             ScanAndRegister(services);
             DecorateRegistrations(services);
 
-            services.AddSingleton<IConfig>(Configuration.GetSection("CustomConfig")?.Get<Config>());
+            var config = Configuration.GetSection("CustomConfig")?.Get<Config>();
+            config.MongoDbConnectionString = Configuration.GetConnectionString("mongodb-arnie") ?? Configuration.GetConnectionString("birds");
+            services.AddSingleton<IConfig>(config);
+
             services.AddAutoMapper(typeof(MappingProfiles.ModelsToResources));
 
             services.AddControllers();
@@ -68,6 +71,8 @@ namespace api.birds
 
         private void AddDbContexts(IServiceCollection services)
         {
+            services.AddSingleton<IConfig>(Configuration.GetSection("CustomConfig")?.Get<Config>());
+
         }
 
         private void DecorateRegistrations(IServiceCollection services)
@@ -99,9 +104,7 @@ namespace api.birds
                     _startupLogger.LogInformation("Beginning database migrations");
                     using var scope = app.ApplicationServices.CreateScope();
 
-                    var connectionString = Configuration.GetConnectionString("mongodb-arnie") ?? Configuration.GetConnectionString("birds");
-
-                    var client = new MongoClient(connectionString);
+                    var client = new MongoClient(config.MongoDbConnectionString);
                     var database = client.GetDatabase("birdsApi");
                     var birds = database.GetCollection<Models.Bird>("birds");
                     birds.InsertMany(

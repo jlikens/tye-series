@@ -2,6 +2,7 @@
 using api.birds.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace api.birds.Controllers
 {
@@ -17,7 +18,7 @@ namespace api.birds.Controllers
         }
 
         [HttpGet]
-        public BirdResource Get(int birdId, [FromServices] IBirdService service)
+        public BirdResource Get(Guid birdId, [FromServices] IBirdService service)
         {
             _logger.LogInformation("Getting bird", new { birdId });
             return service.GetBird(birdId);

@@ -23,9 +23,17 @@ namespace frontend.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddHttpClient<api.birdApi.IBirdApiClient, api.birdApi.BirdApiClient>(client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("api-bird");
+            });
             services.AddHttpClient<api.bookApi.IBookApiClient, api.bookApi.BookApiClient>(client =>
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-book");
+            });
+            services.AddHttpClient<api.fruitApi.IFruitApiClient, api.fruitApi.FruitApiClient>(client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("api-fruit");
             });
             services.AddHttpClient<api.personApi.IPersonApiClient, api.personApi.PersonApiClient>(client =>
             {

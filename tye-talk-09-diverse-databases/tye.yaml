@@ -14,6 +14,8 @@ services:
   project: api.birds/api.birds.csproj
 - name: api-book
   project: api.books/api.books.csproj
+- name: api-fruit
+  project: api.fruits/api.fruits.csproj
 - name: api-person
   project: api.person/api.person.csproj
 - name: api-todo
