@@ -30,7 +30,11 @@ namespace api.birds
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "api.birds v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "api.birds v1");
+                    c.RoutePrefix = "";
+                });
             }
 
             app.UseHttpsRedirection();
