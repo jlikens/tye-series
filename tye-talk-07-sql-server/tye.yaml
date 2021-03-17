@@ -33,3 +33,7 @@ services:
     value: y
   - name: SA_PASSWORD
     value: Password1!
+# Uncomment the following lines to make storage persistent across runs
+#  volumes:
+#  - name: mssql-usidore
+#    target: /var/opt/mssql

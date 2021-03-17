@@ -28,11 +28,33 @@ When you first try to load up your ELK instance, you may see this in your logs:
 [elastic_3c3cdec4-8]: ERROR: Elasticsearch did not exit normally - check the logs at /var/log/elasticsearch/elasticsearch.log
 ```
 
-If so, you'll need to bump up the `vm.max_map_count` setting for the Elastic image.  In Windows, you can do this from a PowerShell admin console:
+If so, you'll need to bump up the `vm.max_map_count` setting in WSL.  In Windows, you can do this from a PowerShell admin console in one of two ways.
+
+#### Option 1: Temporary
+The following will bump up the `vm.max_map_count` until the host is rebooted:
+
 ```powershell
 wsl -d docker-desktop
 sysctl -w vm.max_map_count=262144
 exit
+```
+
+Restart Docker Desktop, re-run `tye run`, and you should be all set.
+
+#### Option 2: Permanent
+The following will bump up the `vm.max_map_count` forever.  Note that this code lets you use Notepad in Windows, but if you're confortable with vi, you can just use that.
+
+```powershell
+wsl -d docker-desktop
+alias notepad="/mnt/host/c/windows/system32/notepad.exe"
+cd /etc
+notepad sysctl.conf
+```
+
+Add a single line to the file and save it.
+
+```text
+vm.max_map_count=262144
 ```
 
 Restart Docker Desktop, re-run `tye run`, and you should be all set.

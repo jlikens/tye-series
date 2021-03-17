@@ -30,7 +30,7 @@ namespace frontend.Server.Controllers
         public async Task<IEnumerable<WeatherForecastResource>> Get()
         {
             var httpClient = new HttpClient();
-            var client = new WeatherApiClient("https://localhost:44361", httpClient);
+            var client = new WeatherApiClient("https://localhost:5003", httpClient);
             var forecast = await client.WeatherForecastAsync();
 
             return forecast.Select(x => new WeatherForecastResource
