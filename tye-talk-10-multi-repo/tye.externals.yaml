@@ -44,6 +44,23 @@ services:
   - MYSQL_USER=mysql
   - MYSQL_PASSWORD=password    
   - MYSQL_DATABASE=Jamilious
+# MariaDB
+# Adminer info: host.docker.internal:23307
+- name: mariadb-can
+  image: mariadb
+  bindings:
+  - connectionString: Server=${host};Port=${port};Database=Can;User ID=${env:MYSQL_USER};Password=${env:MYSQL_PASSWORD}
+    containerPort: 3306
+    port: 23307 # Uncomment this line to run with a static external port
+  # Uncomment the following lines to make storage persistent across runs
+  #volumes:
+  #- name: dbdata
+  #  target: /var/lib/mysql
+  env:
+  - MYSQL_ROOT_PASSWORD=password
+  - MYSQL_USER=mariadb
+  - MYSQL_PASSWORD=password    
+  - MYSQL_DATABASE=Can
 # Database Web Admin
 - name: adminer
   image: adminer
@@ -51,6 +68,30 @@ services:
   - protocol: http
     containerPort: 8080
     port: 25480 # Uncomment this line to run with a static external port
+
+- name: mongodb-arnie
+  image: mongo
+  bindings:
+  - containerPort: 27017
+    connectionString: mongodb://${env:MONGO_INITDB_ROOT_USERNAME}:${env:MONGO_INITDB_ROOT_PASSWORD}@localhost:${port}
+    port: 29000 # Uncomment this line to run with a static external port
+  env:
+  - MONGO_INITDB_ROOT_USERNAME=root
+  - MONGO_INITDB_ROOT_PASSWORD=password
+# Mongo Express
+- name: mongodb-express
+  image: mongo-express
+  bindings:
+  - containerPort: 8081
+    protocol: http
+    port: 28081 # Uncomment this line to run with a static external port
+  env:
+  - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+  - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+  - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+  - ME_CONFIG_MONGODB_PORT=29000
+  - ME_CONFIG_MONGODB_SERVER=host.docker.internal
+  - ME_CONFIG_MONGODB_SSLVALIDATE=false
 # Redis
 - name: redis
   image: redis

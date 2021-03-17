@@ -17,7 +17,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var raw = await Http.GetStringAsync("https://raw.githubusercontent.com/jlikens/tye-series/master/tye-talk-2020-09-diverse-databases/README.md");
+        var raw = await Http.GetStringAsync("https://raw.githubusercontent.com/jlikens/tye-series/master/tye-talk-10-multi-repo/README.md");
         gitResponse = Markdig.Markdown.ToHtml(raw);
     }
 

@@ -105,15 +105,17 @@ namespace api.birds
             {
                 lock (_seedLock)
                 {
-                    _startupLogger.LogInformation("Beginning database migrations");
+                    _startupLogger.LogInformation("Beginning database seeding");
                     using var scope = app.ApplicationServices.CreateScope();
 
                     var client = new MongoClient(config.MongoDbConnectionString);
                     var database = client.GetDatabase("birdsApi");
                     var birds = database.GetCollection<Models.Bird>("birds");
-                    birds.InsertMany(
-                    new Models.Bird[]
+                    if (birds.Find(x => true).FirstOrDefault<Models.Bird>() == null)
                     {
+                        birds.InsertMany(
+                        new Models.Bird[]
+                        {
                         new Models.Bird { Id = Guid.NewGuid(), Name = "Mourning Dove", WingSpan = 0.5 },
                         new Models.Bird { Id = Guid.NewGuid(), Name = "Northern Cardinal", WingSpan = 0.6 },
                         new Models.Bird { Id = Guid.NewGuid(), Name = "American Robin", WingSpan = 0.7 },
@@ -124,8 +126,9 @@ namespace api.birds
                         new Models.Bird { Id = Guid.NewGuid(), Name = "European Starling", WingSpan = 1.3 },
                         new Models.Bird { Id = Guid.NewGuid(), Name = "American Goldfinch", WingSpan = 1.4 },
                         new Models.Bird { Id = Guid.NewGuid(), Name = "Canada Goose", WingSpan = 1.5 },
-                    });
-                    _startupLogger.LogInformation("Completed database seeding");
+                        });
+                        _startupLogger.LogInformation("Completed database seeding");
+                    }
                 }
             }
         }
