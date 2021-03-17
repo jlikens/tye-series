@@ -2,6 +2,7 @@
 using api.books.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace api.books.Controllers
 {
@@ -17,10 +18,10 @@ namespace api.books.Controllers
         }
 
         [HttpGet]
-        public BookResource Get(int bookId, [FromServices] IBookService service)
+        public async Task<BookResource> Get(int bookId, [FromServices] IBookService service)
         {
             _logger.LogInformation("Getting book", new { bookId });
-            return service.GetBook(bookId);
+            return await service.GetBookAsync(bookId);
         }
     }
 }

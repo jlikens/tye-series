@@ -17,9 +17,9 @@ services:
   - ACCEPT_EULA=y
   - SA_PASSWORD=Password1!
 # Uncomment the following lines to make storage persistent across runs
-#  volumes:
-#  - name: mssql-usidore
-#    target: /var/opt/mssql
+  volumes:
+  - name: mssql-usidore
+    target: /var/opt/mssql
 # PostgreSQL
 # Adminer info: host.docker.internal:25432
 - name: postgres-spintax
@@ -31,6 +31,10 @@ services:
   env:
   - POSTGRES_USER=postgres
   - POSTGRES_PASSWORD=password
+# Uncomment the following lines to make storage persistent across runs
+  volumes:
+  - name: postgres-spintax
+    target: /var/lib/postgresql/data
 # MySQL
 # Adminer info: host.docker.internal:23306
 - name: mysql-jamilious
@@ -39,15 +43,15 @@ services:
   - connectionString: Server=${host};Port=${port};Database=Jamilious;User ID=${env:MYSQL_USER};Password=${env:MYSQL_PASSWORD}
     containerPort: 3306
     port: 23306 # Uncomment this line to run with a static external port
-  # Uncomment the following lines to make storage persistent across runs
-  #volumes:
-  #- name: dbdata
-  #  target: /var/lib/mysql
   env:
   - MYSQL_ROOT_PASSWORD=password
   - MYSQL_USER=mysql
   - MYSQL_PASSWORD=password    
   - MYSQL_DATABASE=Jamilious
+# Uncomment the following lines to make storage persistent across runs
+  volumes:
+  - name: mysql-jamilious
+    target: /var/lib/mysql
 # MariaDB
 # Adminer info: host.docker.internal:23307
 - name: mariadb-can
@@ -56,15 +60,15 @@ services:
   - connectionString: Server=${host};Port=${port};Database=Can;User ID=${env:MYSQL_USER};Password=${env:MYSQL_PASSWORD}
     containerPort: 3306
     port: 23307 # Uncomment this line to run with a static external port
-  # Uncomment the following lines to make storage persistent across runs
-  #volumes:
-  #- name: dbdata
-  #  target: /var/lib/mysql
   env:
   - MYSQL_ROOT_PASSWORD=password
   - MYSQL_USER=mariadb
   - MYSQL_PASSWORD=password    
   - MYSQL_DATABASE=Can
+# Uncomment the following lines to make storage persistent across runs
+  volumes:
+  - name: mariadb-can
+    target: /var/lib/mysql
 # Database Web Admin
 - name: adminer
   image: adminer
@@ -72,7 +76,7 @@ services:
   - protocol: http
     containerPort: 8080
     port: 25480 # Uncomment this line to run with a static external port
-
+# MongoDB
 - name: mongodb-arnie
   image: mongo
   bindings:
@@ -82,6 +86,10 @@ services:
   env:
   - MONGO_INITDB_ROOT_USERNAME=root
   - MONGO_INITDB_ROOT_PASSWORD=password
+# Uncomment the following lines to make storage persistent across runs
+  volumes:
+  - name: mongodb-arnie
+    target: /data/db
 # Mongo Express
 - name: mongodb-express
   image: mongo-express

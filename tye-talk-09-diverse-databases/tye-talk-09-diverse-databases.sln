@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.birds", "api.birds\api.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.fruits", "api.fruits\api.fruits.csproj", "{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.hat", "api.hat\api.hat.csproj", "{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

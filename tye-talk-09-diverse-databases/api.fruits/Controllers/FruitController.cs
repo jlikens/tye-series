@@ -2,6 +2,7 @@
 using api.fruits.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace api.fruits.Controllers
 {
@@ -17,10 +18,10 @@ namespace api.fruits.Controllers
         }
 
         [HttpGet]
-        public FruitResource Get(int fruitId, [FromServices] IFruitService service)
+        public async Task<FruitResource> Get(int fruitId, [FromServices] IFruitService service)
         {
             _logger.LogInformation("Getting fruit", new { fruitId });
-            return service.GetFruit(fruitId);
+            return await service.GetFruitAsync(fruitId);
         }
     }
 }

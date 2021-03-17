@@ -3,6 +3,7 @@ using api.birds.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading.Tasks;
 
 namespace api.birds.Controllers
 {
@@ -18,10 +19,10 @@ namespace api.birds.Controllers
         }
 
         [HttpGet]
-        public BirdResource Get(Guid birdId, [FromServices] IBirdService service)
+        public async Task<BirdResource> Get(Guid birdId, [FromServices] IBirdService service)
         {
             _logger.LogInformation("Getting bird", new { birdId });
-            return service.GetBird(birdId);
+            return await service.GetBirdAsync(birdId);
         }
     }
 }
