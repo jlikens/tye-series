@@ -17,9 +17,9 @@ For examples that use containers:
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for your OS
 
 For examples that use Kubernetes:
-* A Kubernetes cluster, such as Azure Kubernetes Service
-* The (Azure CLI)[https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli]
-* (kubectl)[https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/]
+* A Kubernetes cluster, such as [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/)
+* The [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli) utility
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
 
 ## The Series
 * [tye-talk-01-simple](tye-talk-01-simple)
