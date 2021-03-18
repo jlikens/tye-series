@@ -15,24 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "frontend.Server", "frontend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "frontend.Shared", "frontend\Shared\frontend.Shared.csproj", "{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.university", "api.university\api.university.csproj", "{71054CAE-6D61-4386-BE14-22C6CD1E566A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11017AC7-0FC5-4F80-9D48-AB97A6303592}"
 	ProjectSection(SolutionItems) = preProject
+		mongodb-crds.yaml = mongodb-crds.yaml
+		mongodb-enterprise.yaml = mongodb-enterprise.yaml
+		mongodb-ops-manager.yaml = mongodb-ops-manager.yaml
 		README.md = README.md
-		sqlserver-instance.k8s.yaml = sqlserver-instance.k8s.yaml
-		sqlserver-storage.k8s.yaml = sqlserver-storage.k8s.yaml
 		tye.externals.yaml = tye.externals.yaml
 		tye.yaml = tye.yaml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.books", "api.books\api.books.csproj", "{E4F18529-5D33-49C1-B3AA-F9BA88876450}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.birds", "api.birds\api.birds.csproj", "{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.fruits", "api.fruits\api.fruits.csproj", "{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.hat", "api.hat\api.hat.csproj", "{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,26 +57,10 @@ Global
 		{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71054CAE-6D61-4386-BE14-22C6CD1E566A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71054CAE-6D61-4386-BE14-22C6CD1E566A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71054CAE-6D61-4386-BE14-22C6CD1E566A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71054CAE-6D61-4386-BE14-22C6CD1E566A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4F18529-5D33-49C1-B3AA-F9BA88876450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4F18529-5D33-49C1-B3AA-F9BA88876450}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4F18529-5D33-49C1-B3AA-F9BA88876450}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4F18529-5D33-49C1-B3AA-F9BA88876450}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C254D009-C8E4-4B38-B95E-E5B083CDBDD5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDBDD4C6-7A1D-4A3C-B8D6-1414F88F624F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

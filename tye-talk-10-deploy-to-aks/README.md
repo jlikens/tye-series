@@ -33,8 +33,9 @@ The second element, `ingress`, allows us to forward external calls to the contai
 
 ## Create a Kubernetes Cluster in Azure
 * Create a new k8s cluster in your [Azure Portal](https://portal.azure.com)
-** Set node count to 1
+** Set node count to 3
 ** Make sure to use one of the cheap VMs (as of this writing, the B2s is the cheapest at about $1USD/day)
+*** Note that MSSQL is a memory hog, so you may need to bump up the node count and/or the VM size to have more memory :weary:
 ** Turn on monitoring for now so you can see when things blow up
 ** Leave everything else at defaults for now
 * Note that resource creation will take a few minutes
@@ -106,10 +107,19 @@ kubectl delete service mssql-deployment
 kubectl delete deployment mssql-deployment 
 ```
 
-### PostgreSQL
-### MySQL
-### MariaDB
 ### MongoDB
+kubectl create namespace mongodb
+kubectl apply -f mongodb-crds.yaml
+kubectl apply -f mongodb-enterprise.yaml
+kubectl create secret generic ops-manager-admin-secret `
+  --from-literal=Username="root" `
+  --from-literal=Password="password" `
+  --from-literal=FirstName="Rooty" `
+  --from-literal=LastName="McRoot" `
+kubectl apply -f mongodb-ops-manager.yaml -n mongodb
+kubectl get om -n mongodb -o yaml -w
+kubectl port-forward pods/ops-manager-0 8080:8080 -n mongodb
+http://localhost:8080
 ### Redis
 
 ## Deploy

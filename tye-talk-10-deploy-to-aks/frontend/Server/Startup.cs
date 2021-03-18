@@ -27,18 +27,6 @@ namespace frontend.Server
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-bird");
             });
-            services.AddHttpClient<api.bookApi.IBookApiClient, api.bookApi.BookApiClient>(client =>
-            {
-                client.BaseAddress = Configuration.GetServiceUri("api-book");
-            });
-            services.AddHttpClient<api.fruitApi.IFruitApiClient, api.fruitApi.FruitApiClient>(client =>
-            {
-                client.BaseAddress = Configuration.GetServiceUri("api-fruit");
-            });
-            services.AddHttpClient<api.hatApi.IHatApiClient, api.hatApi.HatApiClient>(client =>
-            {
-                client.BaseAddress = Configuration.GetServiceUri("api-hat");
-            });
             services.AddHttpClient<api.personApi.IPersonApiClient, api.personApi.PersonApiClient>(client =>
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-person");
@@ -46,10 +34,6 @@ namespace frontend.Server
             services.AddHttpClient<api.todoApi.ITodoApiClient, api.todoApi.TodoApiClient>(client =>
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-todo");
-            });
-            services.AddHttpClient<api.universityApi.IUniversityApiClient, api.universityApi.UniversityApiClient>(client =>
-            {
-                client.BaseAddress = Configuration.GetServiceUri("api-university");
             });
             services.AddHttpClient<api.weatherApi.IWeatherApiClient, api.weatherApi.WeatherApiClient>(client =>
             {
