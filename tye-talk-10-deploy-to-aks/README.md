@@ -19,9 +19,6 @@ ingress:
     rules:
       - path: /
         service: frontend-server
-extensions:
-- name: zipkin
-- name: elastic
 ...
 ```
 
@@ -33,10 +30,10 @@ The second element, `ingress`, allows us to forward external calls to the contai
 
 ## Create a Kubernetes Cluster in Azure
 * Create a new k8s cluster in your [Azure Portal](https://portal.azure.com)
-** Set node count to 5
-** Make sure to use one of the cheap VMs (as of this writing, the B2s is the cheapest at about $1USD/day)
-** Turn on monitoring for now so you can see when things blow up
-** Leave everything else at defaults for now
+  * Set node count to 5
+  * Make sure to use one of the cheap VMs (as of this writing, the B2s is the cheapest at about $1USD/day)
+  * Turn on monitoring for now so you can see when things blow up
+  * Leave everything else at defaults for now
 * Note that resource creation will take a few minutes
 
 ## Install kubectl
@@ -78,17 +75,19 @@ tye deploy --interactive
 >If you get an error saying `Cannot apply manifests because kubectl is not installed.`, please follow the steps above to install `kubectl`.
 ```
 * The first time you deploy, a few things will happen:
-** First, you'll be prompted to enter a URI for Zipkin and Elastic
-*** Just enter in a dummy URI (it needs to be in a proper URI format) as Tye can't deploy these and they won't be used
-** Second, you'll be prompted to deploy a new ingress-nginx instance.  Choose `yes`.
-*** `Deploy ingress-nginx (y/n): y`
+  * First, you'll be prompted to enter a URI for Zipkin and Elastic
+    * Just enter in a dummy URI (it needs to be in a proper URI format) as Tye can't deploy these and they won't be used
+  * Second, you'll be prompted to deploy a new ingress-nginx instance.  Choose `yes`.
+    * `Deploy ingress-nginx (y/n): y`
 
 Once it's complete, you can verify that things were deployed:
 ```powershell
 kubectl get service
 ```
 
-After everything is out there and running, you can either check your Azure portal for the external ip of the new `ingress-ngnix-controller` service or run the following command:
+You should see a line for each of the three APIs and one line each for the front-end client and server.
+
+After everything is out there and running, you can either check your Azure portal for the external IP of the new `ingress-ngnix-controller` service or run the following command:
 ```powershell
 kubectl get service -o wide -A
 ```
