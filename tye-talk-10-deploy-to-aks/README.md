@@ -72,8 +72,9 @@ az acr login -n $containerRegistry
 az aks get-credentials --resource-group $resourceGroup --name $aksInstance
 # Use tye to deploy out to AKS
 tye deploy --interactive
->If you get an error saying `Cannot apply manifests because kubectl is not installed.`, please follow the steps above to install `kubectl`.
 ```
+> :bulb: If you get an error saying `Cannot apply manifests because kubectl is not installed.`, please follow the steps above to install `kubectl`.
+
 * The first time you deploy, a few things will happen:
   * First, you'll be prompted to enter a URI for Zipkin and Elastic
     * Just enter in a dummy URI (it needs to be in a proper URI format) as Tye can't deploy these and they won't be used
