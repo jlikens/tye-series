@@ -16,6 +16,11 @@ The basics:
 For examples that use containers:
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for your OS
 
+For examples that use Kubernetes:
+* A Kubernetes cluster, such as Azure Kubernetes Service
+* The (Azure CLI)[https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli]
+* (kubectl)[https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/]
+
 ## The Series
 * [tye-talk-01-simple](tye-talk-01-simple)
   * A basic monolithic application, which is essentially just the standard [Blazor WASM Weather App](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro)
@@ -35,5 +40,5 @@ For examples that use containers:
   * We dive into local load balancing to test distributed locking and distributed caching with Redis
 * [tye-talk-09-diverse-databases](tye-talk-09-diverse-databases)
   * Microservices are supposed to have their own isolated data stores.  In this episode, we look at how to spool up a whole bunch of popular data storage platforms  (SQL Server, MySQL, PostgreSQL, MariaDB, and MongoDB)
-* [tye-talk-09-diverse-databases](tye-talk-10-deploy-to-aks)
+* [tye-talk-10-deploy-to-aks](tye-talk-10-deploy-to-aks)
   * We take a peek at Tye's Kubernetes deployment capabilities by sending a slimmed down version of our app to Azure Kubernetes Service
