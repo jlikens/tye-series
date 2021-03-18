@@ -30,7 +30,7 @@ The second element, `ingress`, allows us to forward external calls to the contai
 ## What You'll Need
 * A Kubernetes cluster (we'll use [Azure Kubernetes Service](https://azure.microsoft.com/en-us/topic/what-is-kubernetes/), but any will work)
 * The (Azure CLI)[https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli]
-* (`kubectl`([https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/]
+* (`kubectl`)[https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/]
 
 ## Create a Kubernetes Cluster in Azure
 * Create a new k8s cluster in your [Azure Portal](https://portal.azure.com)
