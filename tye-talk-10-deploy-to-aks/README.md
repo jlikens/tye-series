@@ -1,13 +1,12 @@
 
 # tye-talk-2020-10-deploy-to-aks
-Now it's time to take a look at deploying applications with Tye.
+Now it's time to take a look at deploying applications with Tye.  At present, Tye takes care of a lot of the dirty details involved in getting an application out to a Kubernetes cluster.
 
-> :bulb: Important note: Tye does NOT deploy anything other than project nodes.  That is, it will not deploy dependent images.  These must be deployed into your cluster externally.
+> :bulb: For the uninitiated, `k8s` is often used as shorthand for `Kubernetes`.  Why?  Because `Kubernetes` is hard to type, and the `8` refers to the fact that there are eight letters between the `K` and `n`.
 
-What you'll need:
-* A Kubernetes cluster (we'll use [Azure Kubernetes Service](https://azure.microsoft.com/en-us/topic/what-is-kubernetes/), but any will work)
-* The (Azure CLI)[https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli]
-* (`kubectl`([https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/]
+> :exclamation: Important note: Tye does NOT deploy anything other than project nodes.  That is, it will not deploy dependent images.
+
+External dependendencies must be deployed into your cluster through other means (generally through `kubectl` and product-specific yaml files).  For that reason, this example eschews all of the external databases and utilities from previous examples since their deployment is out of scope with respect to Tye.
 
 ## What's Changed
 In the tye.yaml, we've added a couple of new nodes: `registry` and `ingress`:
@@ -26,11 +25,16 @@ ingress:
 The first element, `registry`, allows us to tell tye which container registry to use.
 
 ### Ingress Node
-The second element, `ingress`, allows us to forward external calls to the container host to specific internal services.  In this case, we're forwarding 8080 to the main front-end applicaiton.
+The second element, `ingress`, allows us to forward external calls to the container host to specific internal services.  In this case, we're forwarding external internet traffic to the main front-end server application.
+
+## What You'll Need
+* A Kubernetes cluster (we'll use [Azure Kubernetes Service](https://azure.microsoft.com/en-us/topic/what-is-kubernetes/), but any will work)
+* The (Azure CLI)[https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli]
+* (`kubectl`([https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/]
 
 ## Create a Kubernetes Cluster in Azure
 * Create a new k8s cluster in your [Azure Portal](https://portal.azure.com)
-  * Set node count to 5
+  * Set node count to 1 (this app is pretty small, so you can get away with a tiny node count)
   * Make sure to use one of the cheap VMs (as of this writing, the B2s is the cheapest at about $1USD/day)
   * Turn on monitoring for now so you can see when things blow up
   * Leave everything else at defaults for now
