@@ -18,8 +18,6 @@ extensions:
 - name: elastic
   logPath: ./.logs
 services:
-- name: api-bird
-  project: api.birds/api.birds.csproj
 - name: api-person
   project: api.person/api.person.csproj
 - name: api-todo
@@ -30,31 +28,3 @@ services:
   project: frontend/Client/frontend.Client.csproj
 - name: frontend-server
   project: frontend/Server/frontend.Server.csproj
-# MongoDB
-- name: mongodb-arnie
-  image: mongo
-  bindings:
-  - containerPort: 27017
-    connectionString: mongodb://${env:MONGO_INITDB_ROOT_USERNAME}:${env:MONGO_INITDB_ROOT_PASSWORD}@localhost:${port}
-    port: 29000 # Uncomment this line to run with a static external port
-  env:
-  - MONGO_INITDB_ROOT_USERNAME=root
-  - MONGO_INITDB_ROOT_PASSWORD=password
-# Uncomment the following lines to make storage persistent across runs
-  volumes:
-  - name: mongodb-arnie
-    target: /data/db
-# Mongo Express
-- name: mongodb-express
-  image: mongo-express
-  bindings:
-  - containerPort: 8081
-    protocol: http
-    port: 28081 # Uncomment this line to run with a static external port
-  env:
-  - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
-  - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-  - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-  - ME_CONFIG_MONGODB_PORT=29000
-  - ME_CONFIG_MONGODB_SERVER=host.docker.internal
-  - ME_CONFIG_MONGODB_SSLVALIDATE=false

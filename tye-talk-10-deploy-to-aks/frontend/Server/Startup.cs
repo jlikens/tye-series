@@ -23,10 +23,6 @@ namespace frontend.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddHttpClient<api.birdApi.IBirdApiClient, api.birdApi.BirdApiClient>(client =>
-            {
-                client.BaseAddress = Configuration.GetServiceUri("api-bird");
-            });
             services.AddHttpClient<api.personApi.IPersonApiClient, api.personApi.PersonApiClient>(client =>
             {
                 client.BaseAddress = Configuration.GetServiceUri("api-person");

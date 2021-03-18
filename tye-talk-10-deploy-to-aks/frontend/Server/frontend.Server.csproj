@@ -5,7 +5,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<OpenApiReference Include="..\..\swagger-birds.json" CodeGenerator="NSwagCSharp" Namespace="api.birdApi" Link="OpenAPIs\swagger-birds.json" ClassName="BirdApiClient" OutputPath="BirdApiClient.cs" Options="/GenerateExceptionClasses:false /AdditionalNamespaceUsages:frontend.Server /GenerateClientInterfaces:true /InjectHttpClient:true /UseBaseUrl:false" />
 		<OpenApiReference Include="..\..\swagger-person.json" CodeGenerator="NSwagCSharp" Namespace="api.personApi" Link="OpenAPIs\swagger-person.json" ClassName="PersonApiClient" OutputPath="PersonApiClient.cs" Options="/GenerateExceptionClasses:false /AdditionalNamespaceUsages:frontend.Server /GenerateClientInterfaces:true /InjectHttpClient:true /UseBaseUrl:false" />
 		<OpenApiReference Include="..\..\swagger-todo.json" CodeGenerator="NSwagCSharp" Namespace="api.todoApi" Link="OpenAPIs\swagger-todo.json" ClassName="TodoApiClient" OutputPath="TodoApiClient.cs" Options="/GenerateExceptionClasses:false /AdditionalNamespaceUsages:frontend.Server /GenerateClientInterfaces:true /InjectHttpClient:true /UseBaseUrl:false" />
 		<OpenApiReference Include="..\..\swagger-weather.json" CodeGenerator="NSwagCSharp" Namespace="api.weatherApi" Link="OpenAPIs\swagger-weather.json" ClassName="WeatherApiClient" OutputPath="WeatherApiClient.cs" Options="/GenerateExceptionClasses:false /AdditionalNamespaceUsages:frontend.Server /GenerateClientInterfaces:true /InjectHttpClient:true /UseBaseUrl:false" />

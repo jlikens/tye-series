@@ -17,15 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "frontend.Shared", "frontend
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11017AC7-0FC5-4F80-9D48-AB97A6303592}"
 	ProjectSection(SolutionItems) = preProject
-		mongodb-crds.yaml = mongodb-crds.yaml
-		mongodb-enterprise.yaml = mongodb-enterprise.yaml
-		mongodb-ops-manager.yaml = mongodb-ops-manager.yaml
 		README.md = README.md
-		tye.externals.yaml = tye.externals.yaml
 		tye.yaml = tye.yaml
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api.birds", "api.birds\api.birds.csproj", "{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +51,6 @@ Global
 		{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A54AEF0-29DA-4FB5-9659-CA92F28589DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64D0AFCD-8B51-4058-8ABE-621B40A17AB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
