@@ -8,8 +8,6 @@ name: tye-talk-10-deploy-to-aks
 registry: likenstech.azurecr.io
 ingress:
   - name: ingress
-    bindings:
-      - port: 8080
     rules:
       - path: /
         service: frontend-server
