@@ -24,10 +24,17 @@ For examples that use Kubernetes:
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
 
 ## Further Reading & Resources
+Here are some places to go that delve a bit deeper into the various technologies used it this series.
 * [Introducing Project Tye](https://devblogs.microsoft.com/aspnet/introducing-project-tye/)
 * [Building Microservices with Tye - March 2021 Update](https://www.youtube.com/watch?v=m4VsOdIT1O4)
 * [Tye and Kubernetes](https://www.youtube.com/watch?v=prbYvVVAcRs)
 * [How Dell Botched Their Initial Microservice Implementation](https://www.youtube.com/watch?v=gfh-VCTwMw8)
+* [Basic Info on Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
+* [Docker Hub](https://hub.docker.com/)
+* [Overview of Microservices](https://en.wikipedia.org/wiki/Microservices)
+* [Pluralsight .NET Microservices Path](https://www.pluralsight.com/paths/net-microservices)
+* [Intro to Zipkin](https://www.youtube.com/watch?v=jkSm-652UPo)
+* [Intro to Elastic Search Series](https://www.youtube.com/watch?v=GE_Nf9OHf7g&list=PL_mJOmq4zsHbsqFTG0toPRz58uSuRiBK8)
 
 ## The Series
 * [tye-talk-01-simple](tye-talk-01-simple)
