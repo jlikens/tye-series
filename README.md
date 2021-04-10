@@ -35,6 +35,7 @@ Here are some places to go that delve a bit deeper into the various technologies
 * [Pluralsight .NET Microservices Path](https://www.pluralsight.com/paths/net-microservices)
 * [Intro to Zipkin](https://www.youtube.com/watch?v=jkSm-652UPo)
 * [Intro to Elastic Search Series](https://www.youtube.com/watch?v=GE_Nf9OHf7g&list=PL_mJOmq4zsHbsqFTG0toPRz58uSuRiBK8)
+* [Debugging Tye with VS Code](https://www.youtube.com/watch?v=uL7F9u5gon4)
 
 ## The Series
 * [tye-talk-01-simple](tye-talk-01-simple)
