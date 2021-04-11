@@ -1,4 +1,4 @@
-# tye-talk-2020-09-diverse-databases
+# Exploring a Heterogeneous Database Landscape
 
 * Scrutor
 * Add replicas to university service

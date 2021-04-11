@@ -1,4 +1,4 @@
-# tye-talk-2020-08-replication
+# Local Load Balancing!
 One of the more challenging aspects of distributed computing is dealing with multiple instances of the same resources.  The most common example of this is load balancing.  In a production-size environment, you'll generally be running each layer of your application multiple times, using a load balancer to spread out requests among all of the instances of each resource.
 
 Setting this kind of environment up in the cloud is pretty easy.  Setting one up locally, however, generally takes quite a bit of effort.  Why would you want to do this?  What if you wanted to test how session behaves in your application when dealing with multiple web servers?  How about testing distributed access to a common resource?  What about testing distributed caching?
@@ -23,16 +23,16 @@ Next, we've added [Redis](https://redis.io/) to the mix.  Redis is a distributed
 On a related note, we will also be using an implementation of the [Redlock algorithm](https://redis.io/topics/distlock).  This essentially enables the equivalent of thread-locking at the distributed system.  For example, assume you have two instances of an application, each of which performs the same startup code.  This startup code cannot safely be run multiple times simultaneously.  How do we prevent instance A from smashing instance B's startup, and vice versa?
 
 ### Redis Commander
-One really cool aspect of Tye is its ability to automatically pull down and run utility containers.  We saw a bit of this with our [Tye++](../tye-talk-2020-06-tye-plus-plus) example, wherein we pulled in a distributed tracing tool (Zipkin) and a log aggregator (ELK) with almost no effort.  In this example, we'll be pulling in [Redis Commander](https://github.com/joeferner/redis-commander) and hook it up to our local Redis instance just in case we want to poke around in the Redis cache.
+One really cool aspect of Tye is its ability to automatically pull down and run utility containers.  We saw a bit of this with our [Tye++](../tye-talk-06-tye-plus-plus) example, wherein we pulled in a distributed tracing tool (Zipkin) and a log aggregator (ELK) with almost no effort.  In this example, we'll be pulling in [Redis Commander](https://github.com/joeferner/redis-commander) and hook it up to our local Redis instance just in case we want to poke around in the Redis cache.
 
 ### Replicas
 With a single line of yaml, Tye lets you turn on as many copies of a service as you want.  We'll be using this feature in this example to show how to test distributed locking and distributed caching within our `api.university` project.
 
 ## Tye Updates
-Let's take a peek at what we've added to our `tye.yaml` from the [previous example](../tye-talk-2020-07-sql-server).
+Let's take a peek at what we've added to our `tye.yaml` from the [previous example](../tye-talk-07-sql-server).
 
 ```yaml
-name: tye-talk-2020-08-replication
+name: tye-talk-08-replication
 ...
 services:
 ...

@@ -1,5 +1,5 @@
 
-# tye-talk-2020-10-deploy-to-aks
+# Deploy to Kubernetes
 Now it's time to take a look at deploying applications with Tye.  At present, Tye takes care of a lot of the dirty details involved in getting an application out to a Kubernetes cluster.
 
 > :bulb: For the uninitiated, `k8s` is often used as shorthand for `Kubernetes`.  Why?  Because `Kubernetes` is hard to type, and the `8` refers to the fact that there are eight letters between the `K` and `n`.

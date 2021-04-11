@@ -1,4 +1,4 @@
-# tye-talk-2020-04-intertwined
+# And Down We Go
 As our business processes become more complex, so, too, does the code that supports these processes.  We now find ourselves in a place where we need our Person concept to hold Todo instances, and each Todo instance needs to hold a WeatherForecast instance.
 
 In the ideal world, each domain would manage these child dependencies on their own so that each microservice would be entirely stand-alone.  More often, though, dev units wind up connecting microservice A to microservice B, and so on.  This is especially prevalent in cases where an organization hasn't decided how to provide app-specific databases, how to deal with eventual consistency, etc.  

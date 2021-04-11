@@ -1,11 +1,11 @@
-# tye-talk-2020-05-tye-ahoy
+# Tye To The Rescue!
 If you made it this far: CONGRATULATIONS!!  We're finally going to do something with Tye!  If you will recall, we left off in our [previous example](../tye-talk-2020-04-intertwined) with several co-dependent applications: a front-end web app and three microservices.  We made the choice to tie a bunch of these together to illustrate how easy it is for microservice development to become difficult when it comes to your local dev environment.
 
 ## Moving from "4 to 5"
 I see a lot of "samples" that don't really explain how to get from point A to point B, which is... annoying.  I hope to not make that same omission here.  In order to get Tye up and running with [the previous example](../tye-talk-2020-04-intertwined), here's what you need to do.
 
 ### Initializing Tye
-1. Download the source for [the previous example](../tye-talk-2020-04-intertwined) (hereafter referred to as The Source)
+1. Download the source for [the previous example](../tye-talk-04-intertwined) (hereafter referred to as The Source)
 1. Install [Tye](https://github.com/dotnet/tye/blob/master/docs/getting_started.md)
 1. Open a developer command prompt and navigate to The Source **OR**
 1. Run `tye init`, which will create a `tye.yaml` file in the root
@@ -18,7 +18,7 @@ I see a lot of "samples" that don't really explain how to get from point A to po
 # when you've given us a try, we'd love to know what you think:
 #    https://aka.ms/AA7q20u
 #
-name: tye-talk-2020-05-tye-ahoy
+name: tye-talk-05-tye-ahoy
 services:
 - name: api-person
   project: api.person/api.person.csproj
