@@ -1,4 +1,4 @@
-# tye-series
+# Tye Series
 This is a code series that shows practical, real-world scenarios involving distributed applications and [Project Tye](https://github.com/dotnet/tye).  In general, each example builds upon the ideas and code of the previous one, but each is also designed to run on its own.  My goal is to provide an example that evolves over time rather than just the "end result" so you can see what changes from scenario to scenario.
 
 The first four parts of the series are there to set up common scenarios you will encounter when developing distributed apps.  If you want to skip right to the good stuff, hop into the [5th](tye-talk-05-tye-ahoy) in the series where we actually start using Tye.
@@ -11,8 +11,10 @@ This series started life as the demo code for a dev talk.  Each piece in the ser
 ## Pre-requisites 
 The basics:
 * Install [.NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
+  * Tye does not need .NET 5.0, but all of the examples are running on .NET 5.0 so you'll need it
 * Install [Project Tye](https://github.com/dotnet/tye)
-
+  * The main tooling for Tye
+ 
 For examples that use containers:
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop) for your OS
 
@@ -20,6 +22,20 @@ For examples that use Kubernetes:
 * A Kubernetes cluster, such as [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 * The [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli) utility
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
+
+## Further Reading & Resources
+Here are some places to go that delve a bit deeper into the various technologies used it this series.
+* [Introducing Project Tye](https://devblogs.microsoft.com/aspnet/introducing-project-tye/)
+* [Building Microservices with Tye - March 2021 Update](https://www.youtube.com/watch?v=m4VsOdIT1O4)
+* [Tye and Kubernetes](https://www.youtube.com/watch?v=prbYvVVAcRs)
+* [How Dell Botched Their Initial Microservice Implementation](https://www.youtube.com/watch?v=gfh-VCTwMw8)
+* [Basic Info on Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
+* [Docker Hub](https://hub.docker.com/)
+* [Overview of Microservices](https://en.wikipedia.org/wiki/Microservices)
+* [Pluralsight .NET Microservices Path](https://www.pluralsight.com/paths/net-microservices)
+* [Intro to Zipkin](https://www.youtube.com/watch?v=jkSm-652UPo)
+* [Intro to Elastic Search Series](https://www.youtube.com/watch?v=GE_Nf9OHf7g&list=PL_mJOmq4zsHbsqFTG0toPRz58uSuRiBK8)
+* [Debugging Tye with VS Code](https://www.youtube.com/watch?v=uL7F9u5gon4)
 
 ## The Series
 * [tye-talk-01-simple](tye-talk-01-simple)
