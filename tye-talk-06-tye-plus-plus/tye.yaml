@@ -4,7 +4,7 @@
 # when you've given us a try, we'd love to know what you think:
 #    https://aka.ms/AA7q20u
 #
-name: tye-talk-2020-06-tye-plus-plus
+name: tye-talk-06-tye-plus-plus
 
 extensions:
 - name: zipkin

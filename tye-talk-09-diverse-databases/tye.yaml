@@ -4,7 +4,7 @@
 # when you've given us a try, we'd love to know what you think:
 #    https://aka.ms/AA7q20u
 #
-name: tye-talk-2020-09-diverse-databases
+name: tye-talk-09-diverse-databases
 extensions:
 - name: zipkin
 - name: elastic
@@ -36,7 +36,7 @@ services:
   bindings:
   - connectionString: Server=${host},${port};Database=Usidore;User ID=sa;Password=${env:SA_PASSWORD}
     containerPort: 1433
-    port: 21433 # Uncomment this line to run with a static external port
+    port: 31433 # Uncomment this line to run with a static external port
   env:
   - ACCEPT_EULA=y
   - SA_PASSWORD=Password1!

@@ -4,8 +4,14 @@
 # when you've given us a try, we'd love to know what you think:
 #    https://aka.ms/AA7q20u
 #
-name: tye-talk-10-deploy-to-aks
+name: tye-talk-11-multi-repo
+extensions:
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
 services:
+- name: api-bird
+  project: api.birds/api.birds.csproj
 # MongoDB
 - name: mongodb-arnie
   image: mongo

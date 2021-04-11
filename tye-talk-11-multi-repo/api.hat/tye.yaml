@@ -1,0 +1,52 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: tye-talk-11-multi-repo
+extensions:
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
+services:
+- name: api-hat
+  project: api.hat/api.hat.csproj
+# PostgreSQL
+# Adminer info: host.docker.internal:25432
+- name: postgres-spintax
+  image: postgres
+  bindings:
+  - connectionString: Server=${host};Port=${port};Database=Spintax;User ID=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};Pooling=true
+    containerPort: 5432
+    port: 25432 # Uncomment this line to run with a static external port
+  env:
+  - POSTGRES_USER=postgres
+  - POSTGRES_PASSWORD=password
+# Uncomment the following lines to make storage persistent across runs
+  volumes:
+  - name: postgres-spintax
+    target: /var/lib/postgresql/data
+# Database Web Admin
+- name: adminer
+  image: adminer
+  bindings:
+  - protocol: http
+    containerPort: 8080
+    port: 25480 # Uncomment this line to run with a static external port
+# Redis
+- name: redis
+  image: redis
+  bindings:
+  - port: 36379
+    containerPort: 6379
+    connectionString: "${host}:${port}" 
+# Redis admin
+- name: redis-commander
+  image: rediscommander/redis-commander:latest
+  bindings:
+  - port: 38081
+    protocol: http
+    containerPort: 8081
+  env:
+  - REDIS_HOSTS=local:redis:6379

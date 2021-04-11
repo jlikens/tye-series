@@ -4,7 +4,7 @@
 # when you've given us a try, we'd love to know what you think:
 #    https://aka.ms/AA7q20u
 #
-name: tye-talk-2020-05-tye-ahoy
+name: tye-talk-05-tye-ahoy
 services:
 - name: api-person
   project: api.person/api.person.csproj

@@ -1,0 +1,44 @@
+﻿@page "/fruit"
+@using frontend.Shared
+@inject HttpClient Http
+
+<h1>Fruit</h1>
+<p>Demonstrates loading data out of a MariaDB-backed API.</p>
+
+@if (fruits == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fruit in fruits)
+            {
+                <tr>
+                    <td>@fruit.Id</td>
+                    <td>@fruit.Name</td>
+                    <td>@fruit.Color</td>
+                    <td>@fruit.Type</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private FruitResource[] fruits;
+
+    protected override async Task OnInitializedAsync()
+    {
+        fruits = await Http.GetFromJsonAsync<FruitResource[]>("Fruits");
+    }
+}

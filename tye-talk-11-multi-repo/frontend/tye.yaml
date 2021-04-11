@@ -1,0 +1,32 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: tye-talk-11-multi-repo
+extensions:
+- name: zipkin
+- name: elastic
+  logPath: ./.logs
+services:
+- name: api-bird
+  include: ../api.birds/tye.yaml
+- name: api-book
+  include: ../api.books/tye.yaml
+- name: api-fruit
+  include: ../api.fruits/tye.yaml
+- name: api-hat
+  include: ../api.hat/tye.yaml
+- name: api-person
+  include: ../api.person/tye.yaml
+- name: api-todo
+  include: ../api.todo/tye.yaml
+- name: api-university
+  include: ../api.university/tye.yaml
+- name: api-weather
+  include: ../api.weather/tye.yaml
+- name: frontend-client
+  project: ./Client/frontend.Client.csproj
+- name: frontend-server
+  project: ./Server/frontend.Server.csproj
