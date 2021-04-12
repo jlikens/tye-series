@@ -58,3 +58,5 @@ Here are some places to go that delve a bit deeper into the various technologies
   * Microservices are supposed to have their own isolated data stores.  In this episode, we look at how to spool up a whole bunch of popular data storage platforms  (SQL Server, MySQL, PostgreSQL, MariaDB, and MongoDB)
 * [tye-talk-10-deploy-to-aks](tye-talk-10-deploy-to-aks)
   * We take a peek at Tye's Kubernetes deployment capabilities by sending a slimmed down version of our app to Azure Kubernetes Service
+* [tye-talk-11-multi-repo](tye-talk-11-multi-repo)
+  * We look at a more complicated, real-world scenario where the dependencies of a project may not always lay within that project's solution
