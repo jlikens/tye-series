@@ -18,8 +18,6 @@ services:
   project: api.university/api.university.csproj
 - name: api-weather
   project: api.weather/api.weather.csproj
-- name: frontend-client
-  project: frontend/Client/frontend.Client.csproj
 - name: frontend-server
   project: frontend/Server/frontend.Server.csproj
 - name: sqlserver-usidore

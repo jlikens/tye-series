@@ -26,7 +26,5 @@ services:
   include: ../api.university/tye.yaml
 - name: api-weather
   include: ../api.weather/tye.yaml
-- name: frontend-client
-  project: ./Client/frontend.Client.csproj
 - name: frontend-server
   project: ./Server/frontend.Server.csproj
